@@ -1,1 +1,2418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Grammar Drill - Grammardrillo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </script>
+</body>
+</html>
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .welcome-text {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .menu-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            background: #48bb78;
+        }
+
+        .menu-button:hover {
+            background: #38a169;
+        }
+
+        .back-button {
+            background: #f56565;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background: #e53e3e;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 350px;
+        }
+        
+        .navigation-buttons .back-button {
+            margin-top: 10px;
+        }
+
+        .nav-button {
+            background: #4299e1;
+            padding: 10px 25px;
+            font-size: 16px;
+        }
+
+        .nav-button:hover {
+            background: #3182ce;
+        }
+
+        .exercise-container {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .sentence {
+            font-size: 20px;
+            color: #2d3748;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .sentence:hover {
+            border-color: #ff6b6b;
+            transform: translateX(5px);
+        }
+
+        .exercise-title {
+            font-size: 18px;
+            color: #718096;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .verb-info {
+            background: #ffd93d;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #744210;
+        }
+
+        .scheme-info {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #ff6b6b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fed7d7;
+            border-radius: 8px;
+        }
+
+        .nav-button.next-button {
+            background: #48bb78;
+        }
+        
+        .nav-button.next-button:hover {
+            background: #38a169;
+        }
+        
+        .russian {
+            font-size: 28px;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #ffe6e6;
+            border-radius: 10px;
+            text-align: center;
+            display: block !important;
+        }
+        
+        .spanish {
+            font-size: 22px;
+            color: #2d3748;
+            margin: 10px 0;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .test-item {
+            cursor: pointer;
+            user-select: none;
+            width: 100%;
+        }
+        
+        #testContainer {
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        #testContainer:after {
+            content: 'Tap para revelar';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #a0aec0;
+            font-style: italic;
+        }
+        
+        #testContainer.complete:after {
+            content: '¡Completo! Prueba un nuevo ejemplo';
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            button {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            
+            .navigation-buttons {
+                justify-content: center;
+            }
+            
+            .nav-button {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="screen">
+            <h1>¡Bienvenido!</h1>
+            <p class="welcome-text">¡Vamos a conseguirte fluidez en español AHORA!</p>
+            <p style="font-size: 14px; color: #718096; margin-top: 20px;">✨ Funciona sin conexión - ¡no requiere internet!</p>
+            <button onclick="showMainMenu()">¡VAMOS!</button>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen hidden">
+            <h1>Menú Principal</h1>
+            <button class="menu-button" onclick="showExercises()">Ejercicios</button>
+            <button class="menu-button" onclick="showTestYourself()">Ponte a Prueba</button>
+        </div>
+
+        <!-- Exercises Menu -->
+        <div id="exercisesMenu" class="screen hidden">
+            <h2>Gramática Básica</h2>
+            <button class="menu-button" onclick="startPresentSimple()">Presente</button>
+            <button class="menu-button" onclick="startPastSimple()">Pretérito</button>
+            <button class="menu-button" onclick="startFutureSimple()">Futuro</button>
+            <button class="back-button" onclick="showMainMenu()">Volver al Menú</button>
+        </div>
+
+        <!-- Present Exercise -->
+        <div id="presentSimple" class="screen hidden">
+            <h2>Presente</h2>
+            <p class="exercise-title">Practica cambiando sujetos mientras mantienes el mismo verbo</p>
+            
+            <div class="verb-info" id="currentVerb">Verbo actual: ser</div>
+            <div class="scheme-info" id="schemeInfo">Cargando...</div>
+            
+            <div class="exercise-container">
+                <div id="sentenceDisplay">
+                    <div class="sentence" id="sentence1">Cargando...</div>
+                    <div class="sentence" id="sentence2">Cargando...</div>
+                    <div class="sentence" id="sentence3">Cargando...</div>
+                    <div class="sentence" id="sentence4">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="errorMessage" class="error-message hidden"></div>
+
+            <div class="navigation-buttons">
+                <div class="button-row">
+                    <button class="nav-button" id="backBtn" onclick="previousSubject()">Atrás</button>
+                    <button class="nav-button next-button" id="nextBtn" onclick="nextSubject()">Siguiente</button>
+                </div>
+                <div class="button-row">
+                    <button class="nav-button" onclick="playAudioPresent()">🔊 Reproducir</button>
+                    <button class="nav-button" id="changeWordBtn" onclick="changeVerb()">Cambiar Verbo</button>
+                </div>
+                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
+            </div>
+        </div>
+
+        <!-- Past Exercise -->
+        <div id="pastSimple" class="screen hidden">
+            <h2>Pretérito</h2>
+            <p class="exercise-title">Practica cambiando sujetos con el tiempo pasado</p>
+            
+            <div class="verb-info" id="currentVerbPast">Verbo actual: ser</div>
+            <div class="scheme-info" id="schemeInfoPast">Cargando...</div>
+            
+            <div class="exercise-container">
+                <div id="sentenceDisplayPast">
+                    <div class="sentence" id="sentencePast1">Cargando...</div>
+                    <div class="sentence" id="sentencePast2">Cargando...</div>
+                    <div class="sentence" id="sentencePast3">Cargando...</div>
+                    <div class="sentence" id="sentencePast4">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="errorMessagePast" class="error-message hidden"></div>
+
+            <div class="navigation-buttons">
+                <div class="button-row">
+                    <button class="nav-button" id="backBtnPast" onclick="previousSubjectPast()">Atrás</button>
+                    <button class="nav-button next-button" id="nextBtnPast" onclick="nextSubjectPast()">Siguiente</button>
+                </div>
+                <div class="button-row">
+                    <button class="nav-button" onclick="playAudioPast()">🔊 Reproducir</button>
+                    <button class="nav-button" id="changeWordBtnPast" onclick="changeVerbPast()">Cambiar Verbo</button>
+                </div>
+                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
+            </div>
+        </div>
+
+        <!-- Future Exercise -->
+        <div id="futureSimple" class="screen hidden">
+            <h2>Futuro</h2>
+            <p class="exercise-title">Practica cambiando sujetos con el tiempo futuro</p>
+            
+            <div class="verb-info" id="currentVerbFuture">Verbo actual: ser</div>
+            <div class="scheme-info" id="schemeInfoFuture">Cargando...</div>
+            
+            <div class="exercise-container">
+                <div id="sentenceDisplayFuture">
+                    <div class="sentence" id="sentenceFuture1">Cargando...</div>
+                    <div class="sentence" id="sentenceFuture2">Cargando...</div>
+                    <div class="sentence" id="sentenceFuture3">Cargando...</div>
+                    <div class="sentence" id="sentenceFuture4">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="errorMessageFuture" class="error-message hidden"></div>
+
+            <div class="navigation-buttons">
+                <div class="button-row">
+                    <button class="nav-button" id="backBtnFuture" onclick="previousSubjectFuture()">Atrás</button>
+                    <button class="nav-button next-button" id="nextBtnFuture" onclick="nextSubjectFuture()">Siguiente</button>
+                </div>
+                <div class="button-row">
+                    <button class="nav-button" onclick="playAudioFuture()">🔊 Reproducir</button>
+                    <button class="nav-button" id="changeWordBtnFuture" onclick="changeVerbFuture()">Cambiar Verbo</button>
+                </div>
+                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
+            </div>
+        </div>
+
+        <!-- Test Yourself -->
+        <div id="testYourself" class="screen hidden">
+            <h2>Ponte a Prueba</h2>
+            <p class="exercise-title">Traduce esta oración y ponla en forma negativa, interrogativa e interrogativa con pronombre.<br>Toca el ejemplo para ver la traducción.</p>
+            
+            <div class="exercise-container" id="testContainer" onclick="revealNext()">
+                <div class="test-item">
+                    <div class="russian" id="russianSentence">Cargando...</div>
+                    <div class="spanish hidden" id="spanishPositive"></div>
+                    <div class="spanish hidden" id="spanishNegative"></div>
+                    <div class="spanish hidden" id="spanishQuestion"></div>
+                    <div class="spanish hidden" id="spanishWhQuestion"></div>
+                </div>
+            </div>
+            
+            <div id="testError" class="error-message hidden"></div>
+            
+            <div class="navigation-buttons">
+                <button class="nav-button" onclick="generateNewTest()">Nuevo Ejemplo</button>
+                <button class="back-button" onclick="showMainMenu()">Volver al Menú</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Spanish Verb Dictionary
+        const verbDictionary = {
+            // SER verb (to be - permanent)
+            'ser': {
+                present: {
+                    'yo': {
+                        positive: 'yo soy',
+                        negative: 'yo no soy',
+                        question: '¿soy yo?',
+                        whQuestion: '¿quién soy yo?',
+                        russian: 'Я есть (постоянно)'
+                    },
+                    'tú': {
+                        positive: 'tú eres',
+                        negative: 'tú no eres',
+                        question: '¿eres tú?',
+                        whQuestion: '¿quién eres tú?',
+                        russian: 'ты есть (постоянно)'
+                    },
+                    'él': {
+                        positive: 'él es',
+                        negative: 'él no es',
+                        question: '¿es él?',
+                        whQuestion: '¿quién es él?',
+                        russian: 'он есть (постоянно)'
+                    },
+                    'ella': {
+                        positive: 'ella es',
+                        negative: 'ella no es',
+                        question: '¿es ella?',
+                        whQuestion: '¿quién es ella?',
+                        russian: 'она есть (постоянно)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros somos',
+                        negative: 'nosotros no somos',
+                        question: '¿somos nosotros?',
+                        whQuestion: '¿quiénes somos nosotros?',
+                        russian: 'мы есть (постоянно)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros sois',
+                        negative: 'vosotros no sois',
+                        question: '¿sois vosotros?',
+                        whQuestion: '¿quiénes sois vosotros?',
+                        russian: 'вы есть (постоянно)'
+                    },
+                    'ellos': {
+                        positive: 'ellos son',
+                        negative: 'ellos no son',
+                        question: '¿son ellos?',
+                        whQuestion: '¿quiénes son ellos?',
+                        russian: 'они есть (постоянно)'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo fui',
+                        negative: 'yo no fui',
+                        question: '¿fui yo?',
+                        whQuestion: '¿quién fui yo?',
+                        russian: 'Я был/была'
+                    },
+                    'tú': {
+                        positive: 'tú fuiste',
+                        negative: 'tú no fuiste',
+                        question: '¿fuiste tú?',
+                        whQuestion: '¿quién fuiste tú?',
+                        russian: 'ты был/была'
+                    },
+                    'él': {
+                        positive: 'él fue',
+                        negative: 'él no fue',
+                        question: '¿fue él?',
+                        whQuestion: '¿quién fue él?',
+                        russian: 'он был'
+                    },
+                    'ella': {
+                        positive: 'ella fue',
+                        negative: 'ella no fue',
+                        question: '¿fue ella?',
+                        whQuestion: '¿quién fue ella?',
+                        russian: 'она была'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros fuimos',
+                        negative: 'nosotros no fuimos',
+                        question: '¿fuimos nosotros?',
+                        whQuestion: '¿quiénes fuimos nosotros?',
+                        russian: 'мы были'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros fuisteis',
+                        negative: 'vosotros no fuisteis',
+                        question: '¿fuisteis vosotros?',
+                        whQuestion: '¿quiénes fuisteis vosotros?',
+                        russian: 'вы были'
+                    },
+                    'ellos': {
+                        positive: 'ellos fueron',
+                        negative: 'ellos no fueron',
+                        question: '¿fueron ellos?',
+                        whQuestion: '¿quiénes fueron ellos?',
+                        russian: 'они были'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo seré',
+                        negative: 'yo no seré',
+                        question: '¿seré yo?',
+                        whQuestion: '¿quién seré yo?',
+                        russian: 'Я буду'
+                    },
+                    'tú': {
+                        positive: 'tú serás',
+                        negative: 'tú no serás',
+                        question: '¿serás tú?',
+                        whQuestion: '¿quién serás tú?',
+                        russian: 'ты будешь'
+                    },
+                    'él': {
+                        positive: 'él será',
+                        negative: 'él no será',
+                        question: '¿será él?',
+                        whQuestion: '¿quién será él?',
+                        russian: 'он будет'
+                    },
+                    'ella': {
+                        positive: 'ella será',
+                        negative: 'ella no será',
+                        question: '¿será ella?',
+                        whQuestion: '¿quién será ella?',
+                        russian: 'она будет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros seremos',
+                        negative: 'nosotros no seremos',
+                        question: '¿seremos nosotros?',
+                        whQuestion: '¿quiénes seremos nosotros?',
+                        russian: 'мы будем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros seréis',
+                        negative: 'vosotros no seréis',
+                        question: '¿seréis vosotros?',
+                        whQuestion: '¿quiénes seréis vosotros?',
+                        russian: 'вы будете'
+                    },
+                    'ellos': {
+                        positive: 'ellos serán',
+                        negative: 'ellos no serán',
+                        question: '¿serán ellos?',
+                        whQuestion: '¿quiénes serán ellos?',
+                        russian: 'они будут'
+                    }
+                }
+            },
+
+            // ESTAR verb (to be - temporary)
+            'estar': {
+                present: {
+                    'yo': {
+                        positive: 'yo estoy',
+                        negative: 'yo no estoy',
+                        question: '¿estoy yo?',
+                        whQuestion: '¿dónde estoy yo?',
+                        russian: 'Я есть (временно)'
+                    },
+                    'tú': {
+                        positive: 'tú estás',
+                        negative: 'tú no estás',
+                        question: '¿estás tú?',
+                        whQuestion: '¿dónde estás tú?',
+                        russian: 'ты есть (временно)'
+                    },
+                    'él': {
+                        positive: 'él está',
+                        negative: 'él no está',
+                        question: '¿está él?',
+                        whQuestion: '¿dónde está él?',
+                        russian: 'он есть (временно)'
+                    },
+                    'ella': {
+                        positive: 'ella está',
+                        negative: 'ella no está',
+                        question: '¿está ella?',
+                        whQuestion: '¿dónde está ella?',
+                        russian: 'она есть (временно)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros estamos',
+                        negative: 'nosotros no estamos',
+                        question: '¿estamos nosotros?',
+                        whQuestion: '¿dónde estamos nosotros?',
+                        russian: 'мы есть (временно)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros estáis',
+                        negative: 'vosotros no estáis',
+                        question: '¿estáis vosotros?',
+                        whQuestion: '¿dónde estáis vosotros?',
+                        russian: 'вы есть (временно)'
+                    },
+                    'ellos': {
+                        positive: 'ellos están',
+                        negative: 'ellos no están',
+                        question: '¿están ellos?',
+                        whQuestion: '¿dónde están ellos?',
+                        russian: 'они есть (временно)'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo estuve',
+                        negative: 'yo no estuve',
+                        question: '¿estuve yo?',
+                        whQuestion: '¿dónde estuve yo?',
+                        russian: 'Я был/была (где-то)'
+                    },
+                    'tú': {
+                        positive: 'tú estuviste',
+                        negative: 'tú no estuviste',
+                        question: '¿estuviste tú?',
+                        whQuestion: '¿dónde estuviste tú?',
+                        russian: 'ты был/была (где-то)'
+                    },
+                    'él': {
+                        positive: 'él estuvo',
+                        negative: 'él no estuvo',
+                        question: '¿estuvo él?',
+                        whQuestion: '¿dónde estuvo él?',
+                        russian: 'он был (где-то)'
+                    },
+                    'ella': {
+                        positive: 'ella estuvo',
+                        negative: 'ella no estuvo',
+                        question: '¿estuvo ella?',
+                        whQuestion: '¿dónde estuvo ella?',
+                        russian: 'она была (где-то)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros estuvimos',
+                        negative: 'nosotros no estuvimos',
+                        question: '¿estuvimos nosotros?',
+                        whQuestion: '¿dónde estuvimos nosotros?',
+                        russian: 'мы были (где-то)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros estuvisteis',
+                        negative: 'vosotros no estuvisteis',
+                        question: '¿estuvisteis vosotros?',
+                        whQuestion: '¿dónde estuvisteis vosotros?',
+                        russian: 'вы были (где-то)'
+                    },
+                    'ellos': {
+                        positive: 'ellos estuvieron',
+                        negative: 'ellos no estuvieron',
+                        question: '¿estuvieron ellos?',
+                        whQuestion: '¿dónde estuvieron ellos?',
+                        russian: 'они были (где-то)'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo estaré',
+                        negative: 'yo no estaré',
+                        question: '¿estaré yo?',
+                        whQuestion: '¿dónde estaré yo?',
+                        russian: 'Я буду (где-то)'
+                    },
+                    'tú': {
+                        positive: 'tú estarás',
+                        negative: 'tú no estarás',
+                        question: '¿estarás tú?',
+                        whQuestion: '¿dónde estarás tú?',
+                        russian: 'ты будешь (где-то)'
+                    },
+                    'él': {
+                        positive: 'él estará',
+                        negative: 'él no estará',
+                        question: '¿estará él?',
+                        whQuestion: '¿dónde estará él?',
+                        russian: 'он будет (где-то)'
+                    },
+                    'ella': {
+                        positive: 'ella estará',
+                        negative: 'ella no estará',
+                        question: '¿estará ella?',
+                        whQuestion: '¿dónde estará ella?',
+                        russian: 'она будет (где-то)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros estaremos',
+                        negative: 'nosotros no estaremos',
+                        question: '¿estaremos nosotros?',
+                        whQuestion: '¿dónde estaremos nosotros?',
+                        russian: 'мы будем (где-то)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros estaréis',
+                        negative: 'vosotros no estaréis',
+                        question: '¿estaréis vosotros?',
+                        whQuestion: '¿dónde estaréis vosotros?',
+                        russian: 'вы будете (где-то)'
+                    },
+                    'ellos': {
+                        positive: 'ellos estarán',
+                        negative: 'ellos no estarán',
+                        question: '¿estarán ellos?',
+                        whQuestion: '¿dónde estarán ellos?',
+                        russian: 'они будут (где-то)'
+                    }
+                }
+            },
+
+            // TENER verb (to have)
+            'tener': {
+                present: {
+                    'yo': {
+                        positive: 'yo tengo',
+                        negative: 'yo no tengo',
+                        question: '¿tengo yo?',
+                        whQuestion: '¿qué tengo yo?',
+                        russian: 'Я имею'
+                    },
+                    'tú': {
+                        positive: 'tú tienes',
+                        negative: 'tú no tienes',
+                        question: '¿tienes tú?',
+                        whQuestion: '¿qué tienes tú?',
+                        russian: 'ты имеешь'
+                    },
+                    'él': {
+                        positive: 'él tiene',
+                        negative: 'él no tiene',
+                        question: '¿tiene él?',
+                        whQuestion: '¿qué tiene él?',
+                        russian: 'он имеет'
+                    },
+                    'ella': {
+                        positive: 'ella tiene',
+                        negative: 'ella no tiene',
+                        question: '¿tiene ella?',
+                        whQuestion: '¿qué tiene ella?',
+                        russian: 'она имеет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros tenemos',
+                        negative: 'nosotros no tenemos',
+                        question: '¿tenemos nosotros?',
+                        whQuestion: '¿qué tenemos nosotros?',
+                        russian: 'мы имеем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros tenéis',
+                        negative: 'vosotros no tenéis',
+                        question: '¿tenéis vosotros?',
+                        whQuestion: '¿qué tenéis vosotros?',
+                        russian: 'вы имеете'
+                    },
+                    'ellos': {
+                        positive: 'ellos tienen',
+                        negative: 'ellos no tienen',
+                        question: '¿tienen ellos?',
+                        whQuestion: '¿qué tienen ellos?',
+                        russian: 'они имеют'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo tuve',
+                        negative: 'yo no tuve',
+                        question: '¿tuve yo?',
+                        whQuestion: '¿qué tuve yo?',
+                        russian: 'Я имел/имела'
+                    },
+                    'tú': {
+                        positive: 'tú tuviste',
+                        negative: 'tú no tuviste',
+                        question: '¿tuviste tú?',
+                        whQuestion: '¿qué tuviste tú?',
+                        russian: 'ты имел/имела'
+                    },
+                    'él': {
+                        positive: 'él tuvo',
+                        negative: 'él no tuvo',
+                        question: '¿tuvo él?',
+                        whQuestion: '¿qué tuvo él?',
+                        russian: 'он имел'
+                    },
+                    'ella': {
+                        positive: 'ella tuvo',
+                        negative: 'ella no tuvo',
+                        question: '¿tuvo ella?',
+                        whQuestion: '¿qué tuvo ella?',
+                        russian: 'она имела'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros tuvimos',
+                        negative: 'nosotros no tuvimos',
+                        question: '¿tuvimos nosotros?',
+                        whQuestion: '¿qué tuvimos nosotros?',
+                        russian: 'мы имели'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros tuvisteis',
+                        negative: 'vosotros no tuvisteis',
+                        question: '¿tuvisteis vosotros?',
+                        whQuestion: '¿qué tuvisteis vosotros?',
+                        russian: 'вы имели'
+                    },
+                    'ellos': {
+                        positive: 'ellos tuvieron',
+                        negative: 'ellos no tuvieron',
+                        question: '¿tuvieron ellos?',
+                        whQuestion: '¿qué tuvieron ellos?',
+                        russian: 'они имели'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo tendré',
+                        negative: 'yo no tendré',
+                        question: '¿tendré yo?',
+                        whQuestion: '¿qué tendré yo?',
+                        russian: 'Я буду иметь'
+                    },
+                    'tú': {
+                        positive: 'tú tendrás',
+                        negative: 'tú no tendrás',
+                        question: '¿tendrás tú?',
+                        whQuestion: '¿qué tendrás tú?',
+                        russian: 'ты будешь иметь'
+                    },
+                    'él': {
+                        positive: 'él tendrá',
+                        negative: 'él no tendrá',
+                        question: '¿tendrá él?',
+                        whQuestion: '¿qué tendrá él?',
+                        russian: 'он будет иметь'
+                    },
+                    'ella': {
+                        positive: 'ella tendrá',
+                        negative: 'ella no tendrá',
+                        question: '¿tendrá ella?',
+                        whQuestion: '¿qué tendrá ella?',
+                        russian: 'она будет иметь'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros tendremos',
+                        negative: 'nosotros no tendremos',
+                        question: '¿tendremos nosotros?',
+                        whQuestion: '¿qué tendremos nosotros?',
+                        russian: 'мы будем иметь'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros tendréis',
+                        negative: 'vosotros no tendréis',
+                        question: '¿tendréis vosotros?',
+                        whQuestion: '¿qué tendréis vosotros?',
+                        russian: 'вы будете иметь'
+                    },
+                    'ellos': {
+                        positive: 'ellos tendrán',
+                        negative: 'ellos no tendrán',
+                        question: '¿tendrán ellos?',
+                        whQuestion: '¿qué tendrán ellos?',
+                        russian: 'они будут иметь'
+                    }
+                }
+            },
+
+            // HACER verb (to do/make)
+            'hacer': {
+                present: {
+                    'yo': {
+                        positive: 'yo hago',
+                        negative: 'yo no hago',
+                        question: '¿hago yo?',
+                        whQuestion: '¿qué hago yo?',
+                        russian: 'Я делаю'
+                    },
+                    'tú': {
+                        positive: 'tú haces',
+                        negative: 'tú no haces',
+                        question: '¿haces tú?',
+                        whQuestion: '¿qué haces tú?',
+                        russian: 'ты делаешь'
+                    },
+                    'él': {
+                        positive: 'él hace',
+                        negative: 'él no hace',
+                        question: '¿hace él?',
+                        whQuestion: '¿qué hace él?',
+                        russian: 'он делает'
+                    },
+                    'ella': {
+                        positive: 'ella hace',
+                        negative: 'ella no hace',
+                        question: '¿hace ella?',
+                        whQuestion: '¿qué hace ella?',
+                        russian: 'она делает'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hacemos',
+                        negative: 'nosotros no hacemos',
+                        question: '¿hacemos nosotros?',
+                        whQuestion: '¿qué hacemos nosotros?',
+                        russian: 'мы делаем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros hacéis',
+                        negative: 'vosotros no hacéis',
+                        question: '¿hacéis vosotros?',
+                        whQuestion: '¿qué hacéis vosotros?',
+                        russian: 'вы делаете'
+                    },
+                    'ellos': {
+                        positive: 'ellos hacen',
+                        negative: 'ellos no hacen',
+                        question: '¿hacen ellos?',
+                        whQuestion: '¿qué hacen ellos?',
+                        russian: 'они делают'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo hice',
+                        negative: 'yo no hice',
+                        question: '¿hice yo?',
+                        whQuestion: '¿qué hice yo?',
+                        russian: 'Я сделал/сделала'
+                    },
+                    'tú': {
+                        positive: 'tú hiciste',
+                        negative: 'tú no hiciste',
+                        question: '¿hiciste tú?',
+                        whQuestion: '¿qué hiciste tú?',
+                        russian: 'ты сделал/сделала'
+                    },
+                    'él': {
+                        positive: 'él hizo',
+                        negative: 'él no hizo',
+                        question: '¿hizo él?',
+                        whQuestion: '¿qué hizo él?',
+                        russian: 'он сделал'
+                    },
+                    'ella': {
+                        positive: 'ella hizo',
+                        negative: 'ella no hizo',
+                        question: '¿hizo ella?',
+                        whQuestion: '¿qué hizo ella?',
+                        russian: 'она сделала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hicimos',
+                        negative: 'nosotros no hicimos',
+                        question: '¿hicimos nosotros?',
+                        whQuestion: '¿qué hicimos nosotros?',
+                        russian: 'мы сделали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros hicisteis',
+                        negative: 'vosotros no hicisteis',
+                        question: '¿hicisteis vosotros?',
+                        whQuestion: '¿qué hicisteis vosotros?',
+                        russian: 'вы сделали'
+                    },
+                    'ellos': {
+                        positive: 'ellos hicieron',
+                        negative: 'ellos no hicieron',
+                        question: '¿hicieron ellos?',
+                        whQuestion: '¿qué hicieron ellos?',
+                        russian: 'они сделали'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo haré',
+                        negative: 'yo no haré',
+                        question: '¿haré yo?',
+                        whQuestion: '¿qué haré yo?',
+                        russian: 'Я сделаю'
+                    },
+                    'tú': {
+                        positive: 'tú harás',
+                        negative: 'tú no harás',
+                        question: '¿harás tú?',
+                        whQuestion: '¿qué harás tú?',
+                        russian: 'ты сделаешь'
+                    },
+                    'él': {
+                        positive: 'él hará',
+                        negative: 'él no hará',
+                        question: '¿hará él?',
+                        whQuestion: '¿qué hará él?',
+                        russian: 'он сделает'
+                    },
+                    'ella': {
+                        positive: 'ella hará',
+                        negative: 'ella no hará',
+                        question: '¿hará ella?',
+                        whQuestion: '¿qué hará ella?',
+                        russian: 'она сделает'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros haremos',
+                        negative: 'nosotros no haremos',
+                        question: '¿haremos nosotros?',
+                        whQuestion: '¿qué haremos nosotros?',
+                        russian: 'мы сделаем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros haréis',
+                        negative: 'vosotros no haréis',
+                        question: '¿haréis vosotros?',
+                        whQuestion: '¿qué haréis vosotros?',
+                        russian: 'вы сделаете'
+                    },
+                    'ellos': {
+                        positive: 'ellos harán',
+                        negative: 'ellos no harán',
+                        question: '¿harán ellos?',
+                        whQuestion: '¿qué harán ellos?',
+                        russian: 'они сделают'
+                    }
+                }
+            },
+
+            // IR verb (to go)
+            'ir': {
+                present: {
+                    'yo': {
+                        positive: 'yo voy',
+                        negative: 'yo no voy',
+                        question: '¿voy yo?',
+                        whQuestion: '¿adónde voy yo?',
+                        russian: 'Я иду'
+                    },
+                    'tú': {
+                        positive: 'tú vas',
+                        negative: 'tú no vas',
+                        question: '¿vas tú?',
+                        whQuestion: '¿adónde vas tú?',
+                        russian: 'ты идёшь'
+                    },
+                    'él': {
+                        positive: 'él va',
+                        negative: 'él no va',
+                        question: '¿va él?',
+                        whQuestion: '¿adónde va él?',
+                        russian: 'он идёт'
+                    },
+                    'ella': {
+                        positive: 'ella va',
+                        negative: 'ella no va',
+                        question: '¿va ella?',
+                        whQuestion: '¿adónde va ella?',
+                        russian: 'она идёт'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros vamos',
+                        negative: 'nosotros no vamos',
+                        question: '¿vamos nosotros?',
+                        whQuestion: '¿adónde vamos nosotros?',
+                        russian: 'мы идём'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros vais',
+                        negative: 'vosotros no vais',
+                        question: '¿vais vosotros?',
+                        whQuestion: '¿adónde vais vosotros?',
+                        russian: 'вы идёте'
+                    },
+                    'ellos': {
+                        positive: 'ellos van',
+                        negative: 'ellos no van',
+                        question: '¿van ellos?',
+                        whQuestion: '¿adónde van ellos?',
+                        russian: 'они идут'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo fui',
+                        negative: 'yo no fui',
+                        question: '¿fui yo?',
+                        whQuestion: '¿adónde fui yo?',
+                        russian: 'Я пошёл/пошла'
+                    },
+                    'tú': {
+                        positive: 'tú fuiste',
+                        negative: 'tú no fuiste',
+                        question: '¿fuiste tú?',
+                        whQuestion: '¿adónde fuiste tú?',
+                        russian: 'ты пошёл/пошла'
+                    },
+                    'él': {
+                        positive: 'él fue',
+                        negative: 'él no fue',
+                        question: '¿fue él?',
+                        whQuestion: '¿adónde fue él?',
+                        russian: 'он пошёл'
+                    },
+                    'ella': {
+                        positive: 'ella fue',
+                        negative: 'ella no fue',
+                        question: '¿fue ella?',
+                        whQuestion: '¿adónde fue ella?',
+                        russian: 'она пошла'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros fuimos',
+                        negative: 'nosotros no fuimos',
+                        question: '¿fuimos nosotros?',
+                        whQuestion: '¿adónde fuimos nosotros?',
+                        russian: 'мы пошли'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros fuisteis',
+                        negative: 'vosotros no fuisteis',
+                        question: '¿fuisteis vosotros?',
+                        whQuestion: '¿adónde fuisteis vosotros?',
+                        russian: 'вы пошли'
+                    },
+                    'ellos': {
+                        positive: 'ellos fueron',
+                        negative: 'ellos no fueron',
+                        question: '¿fueron ellos?',
+                        whQuestion: '¿adónde fueron ellos?',
+                        russian: 'они пошли'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo iré',
+                        negative: 'yo no iré',
+                        question: '¿iré yo?',
+                        whQuestion: '¿adónde iré yo?',
+                        russian: 'Я пойду'
+                    },
+                    'tú': {
+                        positive: 'tú irás',
+                        negative: 'tú no irás',
+                        question: '¿irás tú?',
+                        whQuestion: '¿adónde irás tú?',
+                        russian: 'ты пойдёшь'
+                    },
+                    'él': {
+                        positive: 'él irá',
+                        negative: 'él no irá',
+                        question: '¿irá él?',
+                        whQuestion: '¿adónde irá él?',
+                        russian: 'он пойдёт'
+                    },
+                    'ella': {
+                        positive: 'ella irá',
+                        negative: 'ella no irá',
+                        question: '¿irá ella?',
+                        whQuestion: '¿adónde irá ella?',
+                        russian: 'она пойдёт'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros iremos',
+                        negative: 'nosotros no iremos',
+                        question: '¿iremos nosotros?',
+                        whQuestion: '¿adónde iremos nosotros?',
+                        russian: 'мы пойдём'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros iréis',
+                        negative: 'vosotros no iréis',
+                        question: '¿iréis vosotros?',
+                        whQuestion: '¿adónde iréis vosotros?',
+                        russian: 'вы пойдёте'
+                    },
+                    'ellos': {
+                        positive: 'ellos irán',
+                        negative: 'ellos no irán',
+                        question: '¿irán ellos?',
+                        whQuestion: '¿adónde irán ellos?',
+                        russian: 'они пойдут'
+                    }
+                }
+            },
+
+            // PODER verb (can/to be able)
+            'poder': {
+                present: {
+                    'yo': {
+                        positive: 'yo puedo',
+                        negative: 'yo no puedo',
+                        question: '¿puedo yo?',
+                        whQuestion: '¿qué puedo yo hacer?',
+                        russian: 'Я могу'
+                    },
+                    'tú': {
+                        positive: 'tú puedes',
+                        negative: 'tú no puedes',
+                        question: '¿puedes tú?',
+                        whQuestion: '¿qué puedes tú hacer?',
+                        russian: 'ты можешь'
+                    },
+                    'él': {
+                        positive: 'él puede',
+                        negative: 'él no puede',
+                        question: '¿puede él?',
+                        whQuestion: '¿qué puede él hacer?',
+                        russian: 'он может'
+                    },
+                    'ella': {
+                        positive: 'ella puede',
+                        negative: 'ella no puede',
+                        question: '¿puede ella?',
+                        whQuestion: '¿qué puede ella hacer?',
+                        russian: 'она может'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros podemos',
+                        negative: 'nosotros no podemos',
+                        question: '¿podemos nosotros?',
+                        whQuestion: '¿qué podemos nosotros hacer?',
+                        russian: 'мы можем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros podéis',
+                        negative: 'vosotros no podéis',
+                        question: '¿podéis vosotros?',
+                        whQuestion: '¿qué podéis vosotros hacer?',
+                        russian: 'вы можете'
+                    },
+                    'ellos': {
+                        positive: 'ellos pueden',
+                        negative: 'ellos no pueden',
+                        question: '¿pueden ellos?',
+                        whQuestion: '¿qué pueden ellos hacer?',
+                        russian: 'они могут'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo pude',
+                        negative: 'yo no pude',
+                        question: '¿pude yo?',
+                        whQuestion: '¿qué pude yo hacer?',
+                        russian: 'Я мог/могла'
+                    },
+                    'tú': {
+                        positive: 'tú pudiste',
+                        negative: 'tú no pudiste',
+                        question: '¿pudiste tú?',
+                        whQuestion: '¿qué pudiste tú hacer?',
+                        russian: 'ты мог/могла'
+                    },
+                    'él': {
+                        positive: 'él pudo',
+                        negative: 'él no pudo',
+                        question: '¿pudo él?',
+                        whQuestion: '¿qué pudo él hacer?',
+                        russian: 'он мог'
+                    },
+                    'ella': {
+                        positive: 'ella pudo',
+                        negative: 'ella no pudo',
+                        question: '¿pudo ella?',
+                        whQuestion: '¿qué pudo ella hacer?',
+                        russian: 'она могла'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros pudimos',
+                        negative: 'nosotros no pudimos',
+                        question: '¿pudimos nosotros?',
+                        whQuestion: '¿qué pudimos nosotros hacer?',
+                        russian: 'мы могли'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros pudisteis',
+                        negative: 'vosotros no pudisteis',
+                        question: '¿pudisteis vosotros?',
+                        whQuestion: '¿qué pudisteis vosotros hacer?',
+                        russian: 'вы могли'
+                    },
+                    'ellos': {
+                        positive: 'ellos pudieron',
+                        negative: 'ellos no pudieron',
+                        question: '¿pudieron ellos?',
+                        whQuestion: '¿qué pudieron ellos hacer?',
+                        russian: 'они могли'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo podré',
+                        negative: 'yo no podré',
+                        question: '¿podré yo?',
+                        whQuestion: '¿qué podré yo hacer?',
+                        russian: 'Я смогу'
+                    },
+                    'tú': {
+                        positive: 'tú podrás',
+                        negative: 'tú no podrás',
+                        question: '¿podrás tú?',
+                        whQuestion: '¿qué podrás tú hacer?',
+                        russian: 'ты сможешь'
+                    },
+                    'él': {
+                        positive: 'él podrá',
+                        negative: 'él no podrá',
+                        question: '¿podrá él?',
+                        whQuestion: '¿qué podrá él hacer?',
+                        russian: 'он сможет'
+                    },
+                    'ella': {
+                        positive: 'ella podrá',
+                        negative: 'ella no podrá',
+                        question: '¿podrá ella?',
+                        whQuestion: '¿qué podrá ella hacer?',
+                        russian: 'она сможет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros podremos',
+                        negative: 'nosotros no podremos',
+                        question: '¿podremos nosotros?',
+                        whQuestion: '¿qué podremos nosotros hacer?',
+                        russian: 'мы сможем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros podréis',
+                        negative: 'vosotros no podréis',
+                        question: '¿podréis vosotros?',
+                        whQuestion: '¿qué podréis vosotros hacer?',
+                        russian: 'вы сможете'
+                    },
+                    'ellos': {
+                        positive: 'ellos podrán',
+                        negative: 'ellos no podrán',
+                        question: '¿podrán ellos?',
+                        whQuestion: '¿qué podrán ellos hacer?',
+                        russian: 'они смогут'
+                    }
+                }
+            },
+
+            // DECIR verb (to say)
+            'decir': {
+                present: {
+                    'yo': {
+                        positive: 'yo digo',
+                        negative: 'yo no digo',
+                        question: '¿digo yo?',
+                        whQuestion: '¿qué digo yo?',
+                        russian: 'Я говорю'
+                    },
+                    'tú': {
+                        positive: 'tú dices',
+                        negative: 'tú no dices',
+                        question: '¿dices tú?',
+                        whQuestion: '¿qué dices tú?',
+                        russian: 'ты говоришь'
+                    },
+                    'él': {
+                        positive: 'él dice',
+                        negative: 'él no dice',
+                        question: '¿dice él?',
+                        whQuestion: '¿qué dice él?',
+                        russian: 'он говорит'
+                    },
+                    'ella': {
+                        positive: 'ella dice',
+                        negative: 'ella no dice',
+                        question: '¿dice ella?',
+                        whQuestion: '¿qué dice ella?',
+                        russian: 'она говорит'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros decimos',
+                        negative: 'nosotros no decimos',
+                        question: '¿decimos nosotros?',
+                        whQuestion: '¿qué decimos nosotros?',
+                        russian: 'мы говорим'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros decís',
+                        negative: 'vosotros no decís',
+                        question: '¿decís vosotros?',
+                        whQuestion: '¿qué decís vosotros?',
+                        russian: 'вы говорите'
+                    },
+                    'ellos': {
+                        positive: 'ellos dicen',
+                        negative: 'ellos no dicen',
+                        question: '¿dicen ellos?',
+                        whQuestion: '¿qué dicen ellos?',
+                        russian: 'они говорят'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo dije',
+                        negative: 'yo no dije',
+                        question: '¿dije yo?',
+                        whQuestion: '¿qué dije yo?',
+                        russian: 'Я сказал/сказала'
+                    },
+                    'tú': {
+                        positive: 'tú dijiste',
+                        negative: 'tú no dijiste',
+                        question: '¿dijiste tú?',
+                        whQuestion: '¿qué dijiste tú?',
+                        russian: 'ты сказал/сказала'
+                    },
+                    'él': {
+                        positive: 'él dijo',
+                        negative: 'él no dijo',
+                        question: '¿dijo él?',
+                        whQuestion: '¿qué dijo él?',
+                        russian: 'он сказал'
+                    },
+                    'ella': {
+                        positive: 'ella dijo',
+                        negative: 'ella no dijo',
+                        question: '¿dijo ella?',
+                        whQuestion: '¿qué dijo ella?',
+                        russian: 'она сказала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros dijimos',
+                        negative: 'nosotros no dijimos',
+                        question: '¿dijimos nosotros?',
+                        whQuestion: '¿qué dijimos nosotros?',
+                        russian: 'мы сказали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros dijisteis',
+                        negative: 'vosotros no dijisteis',
+                        question: '¿dijisteis vosotros?',
+                        whQuestion: '¿qué dijisteis vosotros?',
+                        russian: 'вы сказали'
+                    },
+                    'ellos': {
+                        positive: 'ellos dijeron',
+                        negative: 'ellos no dijeron',
+                        question: '¿dijeron ellos?',
+                        whQuestion: '¿qué dijeron ellos?',
+                        russian: 'они сказали'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo diré',
+                        negative: 'yo no diré',
+                        question: '¿diré yo?',
+                        whQuestion: '¿qué diré yo?',
+                        russian: 'Я скажу'
+                    },
+                    'tú': {
+                        positive: 'tú dirás',
+                        negative: 'tú no dirás',
+                        question: '¿dirás tú?',
+                        whQuestion: '¿qué dirás tú?',
+                        russian: 'ты скажешь'
+                    },
+                    'él': {
+                        positive: 'él dirá',
+                        negative: 'él no dirá',
+                        question: '¿dirá él?',
+                        whQuestion: '¿qué dirá él?',
+                        russian: 'он скажет'
+                    },
+                    'ella': {
+                        positive: 'ella dirá',
+                        negative: 'ella no dirá',
+                        question: '¿dirá ella?',
+                        whQuestion: '¿qué dirá ella?',
+                        russian: 'она скажет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros diremos',
+                        negative: 'nosotros no diremos',
+                        question: '¿diremos nosotros?',
+                        whQuestion: '¿qué diremos nosotros?',
+                        russian: 'мы скажем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros diréis',
+                        negative: 'vosotros no diréis',
+                        question: '¿diréis vosotros?',
+                        whQuestion: '¿qué diréis vosotros?',
+                        russian: 'вы скажете'
+                    },
+                    'ellos': {
+                        positive: 'ellos dirán',
+                        negative: 'ellos no dirán',
+                        question: '¿dirán ellos?',
+                        whQuestion: '¿qué dirán ellos?',
+                        russian: 'они скажут'
+                    }
+                }
+            },
+
+            // DAR verb (to give)
+            'dar': {
+                present: {
+                    'yo': {
+                        positive: 'yo doy',
+                        negative: 'yo no doy',
+                        question: '¿doy yo?',
+                        whQuestion: '¿qué doy yo?',
+                        russian: 'Я даю'
+                    },
+                    'tú': {
+                        positive: 'tú das',
+                        negative: 'tú no das',
+                        question: '¿das tú?',
+                        whQuestion: '¿qué das tú?',
+                        russian: 'ты даёшь'
+                    },
+                    'él': {
+                        positive: 'él da',
+                        negative: 'él no da',
+                        question: '¿da él?',
+                        whQuestion: '¿qué da él?',
+                        russian: 'он даёт'
+                    },
+                    'ella': {
+                        positive: 'ella da',
+                        negative: 'ella no da',
+                        question: '¿da ella?',
+                        whQuestion: '¿qué da ella?',
+                        russian: 'она даёт'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros damos',
+                        negative: 'nosotros no damos',
+                        question: '¿damos nosotros?',
+                        whQuestion: '¿qué damos nosotros?',
+                        russian: 'мы даём'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros dais',
+                        negative: 'vosotros no dais',
+                        question: '¿dais vosotros?',
+                        whQuestion: '¿qué dais vosotros?',
+                        russian: 'вы даёте'
+                    },
+                    'ellos': {
+                        positive: 'ellos dan',
+                        negative: 'ellos no dan',
+                        question: '¿dan ellos?',
+                        whQuestion: '¿qué dan ellos?',
+                        russian: 'они дают'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo di',
+                        negative: 'yo no di',
+                        question: '¿di yo?',
+                        whQuestion: '¿qué di yo?',
+                        russian: 'Я дал/дала'
+                    },
+                    'tú': {
+                        positive: 'tú diste',
+                        negative: 'tú no diste',
+                        question: '¿diste tú?',
+                        whQuestion: '¿qué diste tú?',
+                        russian: 'ты дал/дала'
+                    },
+                    'él': {
+                        positive: 'él dio',
+                        negative: 'él no dio',
+                        question: '¿dio él?',
+                        whQuestion: '¿qué dio él?',
+                        russian: 'он дал'
+                    },
+                    'ella': {
+                        positive: 'ella dio',
+                        negative: 'ella no dio',
+                        question: '¿dio ella?',
+                        whQuestion: '¿qué dio ella?',
+                        russian: 'она дала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros dimos',
+                        negative: 'nosotros no dimos',
+                        question: '¿dimos nosotros?',
+                        whQuestion: '¿qué dimos nosotros?',
+                        russian: 'мы дали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros disteis',
+                        negative: 'vosotros no disteis',
+                        question: '¿disteis vosotros?',
+                        whQuestion: '¿qué disteis vosotros?',
+                        russian: 'вы дали'
+                    },
+                    'ellos': {
+                        positive: 'ellos dieron',
+                        negative: 'ellos no dieron',
+                        question: '¿dieron ellos?',
+                        whQuestion: '¿qué dieron ellos?',
+                        russian: 'они дали'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo daré',
+                        negative: 'yo no daré',
+                        question: '¿daré yo?',
+                        whQuestion: '¿qué daré yo?',
+                        russian: 'Я дам'
+                    },
+                    'tú': {
+                        positive: 'tú darás',
+                        negative: 'tú no darás',
+                        question: '¿darás tú?',
+                        whQuestion: '¿qué darás tú?',
+                        russian: 'ты дашь'
+                    },
+                    'él': {
+                        positive: 'él dará',
+                        negative: 'él no dará',
+                        question: '¿dará él?',
+                        whQuestion: '¿qué dará él?',
+                        russian: 'он даст'
+                    },
+                    'ella': {
+                        positive: 'ella dará',
+                        negative: 'ella no dará',
+                        question: '¿dará ella?',
+                        whQuestion: '¿qué dará ella?',
+                        russian: 'она даст'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros daremos',
+                        negative: 'nosotros no daremos',
+                        question: '¿daremos nosotros?',
+                        whQuestion: '¿qué daremos nosotros?',
+                        russian: 'мы дадим'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros daréis',
+                        negative: 'vosotros no daréis',
+                        question: '¿daréis vosotros?',
+                        whQuestion: '¿qué daréis vosotros?',
+                        russian: 'вы дадите'
+                    },
+                    'ellos': {
+                        positive: 'ellos darán',
+                        negative: 'ellos no darán',
+                        question: '¿darán ellos?',
+                        whQuestion: '¿qué darán ellos?',
+                        russian: 'они дадут'
+                    }
+                }
+            },
+
+            // VER verb (to see)
+            'ver': {
+                present: {
+                    'yo': {
+                        positive: 'yo veo',
+                        negative: 'yo no veo',
+                        question: '¿veo yo?',
+                        whQuestion: '¿qué veo yo?',
+                        russian: 'Я вижу'
+                    },
+                    'tú': {
+                        positive: 'tú ves',
+                        negative: 'tú no ves',
+                        question: '¿ves tú?',
+                        whQuestion: '¿qué ves tú?',
+                        russian: 'ты видишь'
+                    },
+                    'él': {
+                        positive: 'él ve',
+                        negative: 'él no ve',
+                        question: '¿ve él?',
+                        whQuestion: '¿qué ve él?',
+                        russian: 'он видит'
+                    },
+                    'ella': {
+                        positive: 'ella ve',
+                        negative: 'ella no ve',
+                        question: '¿ve ella?',
+                        whQuestion: '¿qué ve ella?',
+                        russian: 'она видит'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros vemos',
+                        negative: 'nosotros no vemos',
+                        question: '¿vemos nosotros?',
+                        whQuestion: '¿qué vemos nosotros?',
+                        russian: 'мы видим'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros veis',
+                        negative: 'vosotros no veis',
+                        question: '¿veis vosotros?',
+                        whQuestion: '¿qué veis vosotros?',
+                        russian: 'вы видите'
+                    },
+                    'ellos': {
+                        positive: 'ellos ven',
+                        negative: 'ellos no ven',
+                        question: '¿ven ellos?',
+                        whQuestion: '¿qué ven ellos?',
+                        russian: 'они видят'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo vi',
+                        negative: 'yo no vi',
+                        question: '¿vi yo?',
+                        whQuestion: '¿qué vi yo?',
+                        russian: 'Я видел/видела'
+                    },
+                    'tú': {
+                        positive: 'tú viste',
+                        negative: 'tú no viste',
+                        question: '¿viste tú?',
+                        whQuestion: '¿qué viste tú?',
+                        russian: 'ты видел/видела'
+                    },
+                    'él': {
+                        positive: 'él vio',
+                        negative: 'él no vio',
+                        question: '¿vio él?',
+                        whQuestion: '¿qué vio él?',
+                        russian: 'он видел'
+                    },
+                    'ella': {
+                        positive: 'ella vio',
+                        negative: 'ella no vio',
+                        question: '¿vio ella?',
+                        whQuestion: '¿qué vio ella?',
+                        russian: 'она видела'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros vimos',
+                        negative: 'nosotros no vimos',
+                        question: '¿vimos nosotros?',
+                        whQuestion: '¿qué vimos nosotros?',
+                        russian: 'мы видели'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros visteis',
+                        negative: 'vosotros no visteis',
+                        question: '¿visteis vosotros?',
+                        whQuestion: '¿qué visteis vosotros?',
+                        russian: 'вы видели'
+                    },
+                    'ellos': {
+                        positive: 'ellos vieron',
+                        negative: 'ellos no vieron',
+                        question: '¿vieron ellos?',
+                        whQuestion: '¿qué vieron ellos?',
+                        russian: 'они видели'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo veré',
+                        negative: 'yo no veré',
+                        question: '¿veré yo?',
+                        whQuestion: '¿qué veré yo?',
+                        russian: 'Я увижу'
+                    },
+                    'tú': {
+                        positive: 'tú verás',
+                        negative: 'tú no verás',
+                        question: '¿verás tú?',
+                        whQuestion: '¿qué verás tú?',
+                        russian: 'ты увидишь'
+                    },
+                    'él': {
+                        positive: 'él verá',
+                        negative: 'él no verá',
+                        question: '¿verá él?',
+                        whQuestion: '¿qué verá él?',
+                        russian: 'он увидит'
+                    },
+                    'ella': {
+                        positive: 'ella verá',
+                        negative: 'ella no verá',
+                        question: '¿verá ella?',
+                        whQuestion: '¿qué verá ella?',
+                        russian: 'она увидит'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros veremos',
+                        negative: 'nosotros no veremos',
+                        question: '¿veremos nosotros?',
+                        whQuestion: '¿qué veremos nosotros?',
+                        russian: 'мы увидим'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros veréis',
+                        negative: 'vosotros no veréis',
+                        question: '¿veréis vosotros?',
+                        whQuestion: '¿qué veréis vosotros?',
+                        russian: 'вы увидите'
+                    },
+                    'ellos': {
+                        positive: 'ellos verán',
+                        negative: 'ellos no verán',
+                        question: '¿verán ellos?',
+                        whQuestion: '¿qué verán ellos?',
+                        russian: 'они увидят'
+                    }
+                }
+            },
+
+            // SABER verb (to know)
+            'saber': {
+                present: {
+                    'yo': {
+                        positive: 'yo sé',
+                        negative: 'yo no sé',
+                        question: '¿sé yo?',
+                        whQuestion: '¿qué sé yo?',
+                        russian: 'Я знаю'
+                    },
+                    'tú': {
+                        positive: 'tú sabes',
+                        negative: 'tú no sabes',
+                        question: '¿sabes tú?',
+                        whQuestion: '¿qué sabes tú?',
+                        russian: 'ты знаешь'
+                    },
+                    'él': {
+                        positive: 'él sabe',
+                        negative: 'él no sabe',
+                        question: '¿sabe él?',
+                        whQuestion: '¿qué sabe él?',
+                        russian: 'он знает'
+                    },
+                    'ella': {
+                        positive: 'ella sabe',
+                        negative: 'ella no sabe',
+                        question: '¿sabe ella?',
+                        whQuestion: '¿qué sabe ella?',
+                        russian: 'она знает'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros sabemos',
+                        negative: 'nosotros no sabemos',
+                        question: '¿sabemos nosotros?',
+                        whQuestion: '¿qué sabemos nosotros?',
+                        russian: 'мы знаем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros sabéis',
+                        negative: 'vosotros no sabéis',
+                        question: '¿sabéis vosotros?',
+                        whQuestion: '¿qué sabéis vosotros?',
+                        russian: 'вы знаете'
+                    },
+                    'ellos': {
+                        positive: 'ellos saben',
+                        negative: 'ellos no saben',
+                        question: '¿saben ellos?',
+                        whQuestion: '¿qué saben ellos?',
+                        russian: 'они знают'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo supe',
+                        negative: 'yo no supe',
+                        question: '¿supe yo?',
+                        whQuestion: '¿qué supe yo?',
+                        russian: 'Я знал/знала'
+                    },
+                    'tú': {
+                        positive: 'tú supiste',
+                        negative: 'tú no supiste',
+                        question: '¿supiste tú?',
+                        whQuestion: '¿qué supiste tú?',
+                        russian: 'ты знал/знала'
+                    },
+                    'él': {
+                        positive: 'él supo',
+                        negative: 'él no supo',
+                        question: '¿supo él?',
+                        whQuestion: '¿qué supo él?',
+                        russian: 'он знал'
+                    },
+                    'ella': {
+                        positive: 'ella supo',
+                        negative: 'ella no supo',
+                        question: '¿supo ella?',
+                        whQuestion: '¿qué supo ella?',
+                        russian: 'она знала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros supimos',
+                        negative: 'nosotros no supimos',
+                        question: '¿supimos nosotros?',
+                        whQuestion: '¿qué supimos nosotros?',
+                        russian: 'мы знали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros supisteis',
+                        negative: 'vosotros no supisteis',
+                        question: '¿supisteis vosotros?',
+                        whQuestion: '¿qué supisteis vosotros?',
+                        russian: 'вы знали'
+                    },
+                    'ellos': {
+                        positive: 'ellos supieron',
+                        negative: 'ellos no supieron',
+                        question: '¿supieron ellos?',
+                        whQuestion: '¿qué supieron ellos?',
+                        russian: 'они знали'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo sabré',
+                        negative: 'yo no sabré',
+                        question: '¿sabré yo?',
+                        whQuestion: '¿qué sabré yo?',
+                        russian: 'Я узнаю'
+                    },
+                    'tú': {
+                        positive: 'tú sabrás',
+                        negative: 'tú no sabrás',
+                        question: '¿sabrás tú?',
+                        whQuestion: '¿qué sabrás tú?',
+                        russian: 'ты узнаешь'
+                    },
+                    'él': {
+                        positive: 'él sabrá',
+                        negative: 'él no sabrá',
+                        question: '¿sabrá él?',
+                        whQuestion: '¿qué sabrá él?',
+                        russian: 'он узнает'
+                    },
+                    'ella': {
+                        positive: 'ella sabrá',
+                        negative: 'ella no sabrá',
+                        question: '¿sabrá ella?',
+                        whQuestion: '¿qué sabrá ella?',
+                        russian: 'она узнает'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros sabremos',
+                        negative: 'nosotros no sabremos',
+                        question: '¿sabremos nosotros?',
+                        whQuestion: '¿qué sabremos nosotros?',
+                        russian: 'мы узнаем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros sabréis',
+                        negative: 'vosotros no sabréis',
+                        question: '¿sabréis vosotros?',
+                        whQuestion: '¿qué sabréis vosotros?',
+                        russian: 'вы узнаете'
+                    },
+                    'ellos': {
+                        positive: 'ellos sabrán',
+                        negative: 'ellos no sabrán',
+                        question: '¿sabrán ellos?',
+                        whQuestion: '¿qué sabrán ellos?',
+                        russian: 'они узнают'
+                    }
+                }
+            }
+        };
+
+        // Create a list of all available verbs
+        const verbs = Object.keys(verbDictionary);
+        
+        // Data
+        const allSubjects = ['yo', 'tú', 'él', 'ella', 'nosotros', 'vosotros', 'ellos'];
+
+        // State
+        let currentVerb = 'ser';
+        let currentSubjectIndex = 0;
+        let isLoading = false;
+        
+        // State for Past Simple
+        let currentVerbPast = 'ser';
+        let currentSubjectIndexPast = 0;
+        
+        // State for Future Simple
+        let currentVerbFuture = 'ser';
+        let currentSubjectIndexFuture = 0;
+        
+        // Audio settings
+        let audioEnabled = true;
+        
+        // Test Yourself state
+        let currentTestData = null;
+        let revealStage = 0;
+
+        // Navigation functions
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function showMainMenu() {
+            showScreen('mainMenu');
+        }
+
+        function showExercises() {
+            showScreen('exercisesMenu');
+        }
+
+        function showTestYourself() {
+            showScreen('testYourself');
+            // Ensure proper initial state
+            document.getElementById('russianSentence').style.display = 'block';
+            document.querySelectorAll('.spanish').forEach(el => {
+                el.style.display = 'none';
+            });
+            generateNewTest();
+        }
+
+        function startPresentSimple() {
+            showScreen('presentSimple');
+            currentSubjectIndex = 0;
+            updateExerciseDisplay();
+        }
+
+        function startPastSimple() {
+            showScreen('pastSimple');
+            currentSubjectIndexPast = 0;
+            updatePastSimpleDisplay();
+        }
+
+        function startFutureSimple() {
+            showScreen('futureSimple');
+            currentSubjectIndexFuture = 0;
+            updateFutureSimpleDisplay();
+        }
+
+        // Future Simple Exercise Functions
+        function updateFutureSimpleDisplay() {
+            if (isLoading) return;
+            
+            const subject = allSubjects[currentSubjectIndexFuture];
+            
+            try {
+                // Get verb data from dictionary
+                const verbData = verbDictionary[currentVerbFuture]?.future?.[subject];
+                
+                if (verbData) {
+                    document.getElementById('sentenceFuture1').textContent = verbData.positive;
+                    document.getElementById('sentenceFuture2').textContent = verbData.negative;
+                    document.getElementById('sentenceFuture3').textContent = verbData.question;
+                    document.getElementById('sentenceFuture4').textContent = verbData.whQuestion;
+                    document.getElementById('schemeInfoFuture').textContent = 'Futuro: infinitivo + terminaciones específicas';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            
+            // Update verb info
+            document.getElementById('currentVerbFuture').textContent = `Verbo actual: ${currentVerbFuture}`;
+        }
+
+        function nextSubjectFuture() {
+            if (!isLoading) {
+                currentSubjectIndexFuture++;
+                if (currentSubjectIndexFuture >= allSubjects.length) {
+                    currentSubjectIndexFuture = 0; // Loop back to beginning
+                }
+                updateFutureSimpleDisplay();
+            }
+        }
+
+        function previousSubjectFuture() {
+            if (!isLoading) {
+                currentSubjectIndexFuture--;
+                if (currentSubjectIndexFuture < 0) {
+                    currentSubjectIndexFuture = allSubjects.length - 1; // Loop to end
+                }
+                updateFutureSimpleDisplay();
+            }
+        }
+
+        function changeVerbFuture() {
+            if (isLoading) return;
+            
+            // Get a random verb different from the current one
+            let newVerb;
+            do {
+                newVerb = verbs[Math.floor(Math.random() * verbs.length)];
+            } while (newVerb === currentVerbFuture);
+            
+            currentVerbFuture = newVerb;
+            
+            // Get a random subject
+            currentSubjectIndexFuture = Math.floor(Math.random() * allSubjects.length);
+            
+            updateFutureSimpleDisplay();
+        }
+
+        // Present Simple Exercise Functions
+        function updateExerciseDisplay() {
+            if (isLoading) return;
+            
+            const subject = allSubjects[currentSubjectIndex];
+            
+            try {
+                // Get verb data from dictionary
+                const verbData = verbDictionary[currentVerb]?.present?.[subject];
+                
+                if (verbData) {
+                    document.getElementById('sentence1').textContent = verbData.positive;
+                    document.getElementById('sentence2').textContent = verbData.negative;
+                    document.getElementById('sentence3').textContent = verbData.question;
+                    document.getElementById('sentence4').textContent = verbData.whQuestion;
+                    
+                    // Update scheme info
+                    document.getElementById('schemeInfo').textContent = 'Presente: cada verbo tiene su conjugación específica';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            
+            // Update verb info
+            document.getElementById('currentVerb').textContent = `Verbo actual: ${currentVerb}`;
+        }
+
+        function nextSubject() {
+            if (!isLoading) {
+                currentSubjectIndex++;
+                if (currentSubjectIndex >= allSubjects.length) {
+                    currentSubjectIndex = 0; // Loop back to beginning
+                }
+                updateExerciseDisplay();
+            }
+        }
+
+        function previousSubject() {
+            if (!isLoading) {
+                currentSubjectIndex--;
+                if (currentSubjectIndex < 0) {
+                    currentSubjectIndex = allSubjects.length - 1; // Loop to end
+                }
+                updateExerciseDisplay();
+            }
+        }
+
+        function changeVerb() {
+            if (isLoading) return;
+            
+            // Get a random verb different from the current one
+            let newVerb;
+            do {
+                newVerb = verbs[Math.floor(Math.random() * verbs.length)];
+            } while (newVerb === currentVerb);
+            
+            currentVerb = newVerb;
+            
+            // Get a random subject
+            currentSubjectIndex = Math.floor(Math.random() * allSubjects.length);
+            
+            updateExerciseDisplay();
+        }
+
+        // Past Simple Exercise Functions
+        function updatePastSimpleDisplay() {
+            if (isLoading) return;
+            
+            const subject = allSubjects[currentSubjectIndexPast];
+            
+            try {
+                // Get verb data from dictionary
+                const verbData = verbDictionary[currentVerbPast]?.past?.[subject];
+                
+                if (verbData) {
+                    document.getElementById('sentencePast1').textContent = verbData.positive;
+                    document.getElementById('sentencePast2').textContent = verbData.negative;
+                    document.getElementById('sentencePast3').textContent = verbData.question;
+                    document.getElementById('sentencePast4').textContent = verbData.whQuestion;
+                    document.getElementById('schemeInfoPast').textContent = 'Pretérito: formas específicas para cada sujeto';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            
+            // Update verb info
+            document.getElementById('currentVerbPast').textContent = `Verbo actual: ${currentVerbPast}`;
+        }
+
+        function nextSubjectPast() {
+            if (!isLoading) {
+                currentSubjectIndexPast++;
+                if (currentSubjectIndexPast >= allSubjects.length) {
+                    currentSubjectIndexPast = 0; // Loop back to beginning
+                }
+                updatePastSimpleDisplay();
+            }
+        }
+
+        function previousSubjectPast() {
+            if (!isLoading) {
+                currentSubjectIndexPast--;
+                if (currentSubjectIndexPast < 0) {
+                    currentSubjectIndexPast = allSubjects.length - 1; // Loop to end
+                }
+                updatePastSimpleDisplay();
+            }
+        }
+
+        function changeVerbPast() {
+            if (isLoading) return;
+            
+            // Get a random verb different from the current one
+            let newVerb;
+            do {
+                newVerb = verbs[Math.floor(Math.random() * verbs.length)];
+            } while (newVerb === currentVerbPast);
+            
+            currentVerbPast = newVerb;
+            
+            // Get a random subject
+            currentSubjectIndexPast = Math.floor(Math.random() * allSubjects.length);
+            
+            updatePastSimpleDisplay();
+        }
+
+        // Audio Functions
+        function speak(text) {
+            if ('speechSynthesis' in window && audioEnabled) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES'; // Spanish
+                utterance.rate = 0.9; // Slightly slower for learning
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function playAudioPresent() {
+            const sentences = [
+                document.getElementById('sentence1').textContent,
+                document.getElementById('sentence2').textContent,
+                document.getElementById('sentence3').textContent,
+                document.getElementById('sentence4').textContent
+            ];
+            
+            // Speak all sentences with pauses
+            let index = 0;
+            function speakNext() {
+                if (index < sentences.length) {
+                    speak(sentences[index]);
+                    index++;
+                    setTimeout(speakNext, 2000); // 2 second pause between sentences
+                }
+            }
+            speakNext();
+        }
+
+        function playAudioPast() {
+            const sentences = [
+                document.getElementById('sentencePast1').textContent,
+                document.getElementById('sentencePast2').textContent,
+                document.getElementById('sentencePast3').textContent,
+                document.getElementById('sentencePast4').textContent
+            ];
+            
+            let index = 0;
+            function speakNext() {
+                if (index < sentences.length) {
+                    speak(sentences[index]);
+                    index++;
+                    setTimeout(speakNext, 2000);
+                }
+            }
+            speakNext();
+        }
+
+        function playAudioFuture() {
+            const sentences = [
+                document.getElementById('sentenceFuture1').textContent,
+                document.getElementById('sentenceFuture2').textContent,
+                document.getElementById('sentenceFuture3').textContent,
+                document.getElementById('sentenceFuture4').textContent
+            ];
+            
+            let index = 0;
+            function speakNext() {
+                if (index < sentences.length) {
+                    speak(sentences[index]);
+                    index++;
+                    setTimeout(speakNext, 2000);
+                }
+            }
+            speakNext();
+        }
+
+        // Test Yourself Functions
+        function generateNewTest() {
+            // Reset reveal stage
+            revealStage = 0;
+            
+            // Reset complete state
+            document.getElementById('testContainer').classList.remove('complete');
+            
+            // Ensure Russian is visible and all Spanish sentences are hidden
+            document.getElementById('russianSentence').style.display = 'block';
+            document.getElementById('russianSentence').classList.remove('hidden');
+            document.querySelectorAll('.spanish').forEach(el => {
+                el.classList.add('hidden');
+                el.style.display = 'none';
+            });
+            
+            // Get random subject, verb, and tense
+            const randomSubject = allSubjects[Math.floor(Math.random() * allSubjects.length)];
+            const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+            const tenses = ['present', 'past', 'future'];
+            const randomTense = tenses[Math.floor(Math.random() * tenses.length)];
+            
+            // Get verb data from dictionary
+            const verbData = verbDictionary[randomVerb]?.[randomTense]?.[randomSubject];
+            
+            if (verbData) {
+                // Display Russian translation
+                const russianEl = document.getElementById('russianSentence');
+                russianEl.textContent = verbData.russian;
+                russianEl.classList.remove('hidden');
+                russianEl.style.display = 'block';
+                
+                // Store Spanish sentences (hidden)
+                document.getElementById('spanishPositive').textContent = verbData.positive;
+                document.getElementById('spanishNegative').textContent = verbData.negative;
+                document.getElementById('spanishQuestion').textContent = verbData.question;
+                document.getElementById('spanishWhQuestion').textContent = verbData.whQuestion;
+                
+                currentTestData = { sentences: [
+                    verbData.positive,
+                    verbData.negative,
+                    verbData.question,
+                    verbData.whQuestion
+                ]};
+            }
+        }
+
+        function revealNext() {
+            const elements = [
+                'spanishPositive',
+                'spanishNegative', 
+                'spanishQuestion',
+                'spanishWhQuestion'
+            ];
+            
+            if (revealStage < elements.length) {
+                const element = document.getElementById(elements[revealStage]);
+                element.classList.remove('hidden');
+                element.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important;';
+                revealStage++;
+                
+                // Mark as complete when all revealed
+                if (revealStage === elements.length) {
+                    document.getElementById('testContainer').classList.add('complete');
+                }
+            }
+        }
