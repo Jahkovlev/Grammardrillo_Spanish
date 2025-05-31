@@ -10,6 +10,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
+        html {
+            height: 100%;
+        }
     </script>
 </body>
 </html>
@@ -22,6 +26,8 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
         }
 
         .container {
@@ -32,6 +38,7 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -165,7 +172,7 @@
         }
 
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         .verb-info {
@@ -275,8 +282,13 @@
         }
         
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
             .container {
                 padding: 20px;
+                max-width: 100%;
             }
             
             button {
@@ -301,7 +313,7 @@
             <h1>¡Bienvenido!</h1>
             <p class="welcome-text">¡Vamos a conseguirte fluidez en español AHORA!</p>
             <p style="font-size: 14px; color: #718096; margin-top: 20px;">✨ Funciona sin conexión - ¡no requiere internet!</p>
-            <button onclick="showMainMenu()">¡VAMOS!</button>
+            <button id="startButton" onclick="showMainMenu()">¡VAMOS!</button>
         </div>
 
         <!-- Main Menu -->
@@ -441,6 +453,7 @@
     </div>
 
     <script>
+        // Spanish Verb Dictionary
         // Spanish Verb Dictionary
         const verbDictionary = {
             // SER verb (to be - permanent)
@@ -2042,15 +2055,46 @@
 
         // Navigation functions
         function showScreen(screenId) {
+            console.log('Showing screen:', screenId);
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.add('hidden');
+                screen.style.display = 'none';
             });
-            document.getElementById(screenId).classList.remove('hidden');
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.remove('hidden');
+                targetScreen.style.display = 'block';
+            } else {
+                console.error('Screen not found:', screenId);
+            }
         }
 
         function showMainMenu() {
+            console.log('showMainMenu called');
             showScreen('mainMenu');
         }
+        
+        // Make functions globally accessible
+        window.showMainMenu = showMainMenu;
+        window.showExercises = showExercises;
+        window.showTestYourself = showTestYourself;
+        window.startPresentSimple = startPresentSimple;
+        window.startPastSimple = startPastSimple;
+        window.startFutureSimple = startFutureSimple;
+        window.previousSubject = previousSubject;
+        window.nextSubject = nextSubject;
+        window.changeVerb = changeVerb;
+        window.previousSubjectPast = previousSubjectPast;
+        window.nextSubjectPast = nextSubjectPast;
+        window.changeVerbPast = changeVerbPast;
+        window.previousSubjectFuture = previousSubjectFuture;
+        window.nextSubjectFuture = nextSubjectFuture;
+        window.changeVerbFuture = changeVerbFuture;
+        window.playAudioPresent = playAudioPresent;
+        window.playAudioPast = playAudioPast;
+        window.playAudioFuture = playAudioFuture;
+        window.generateNewTest = generateNewTest;
+        window.revealNext = revealNext;
 
         function showExercises() {
             showScreen('exercisesMenu');
