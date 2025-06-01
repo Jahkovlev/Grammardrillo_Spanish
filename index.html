@@ -3,20 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spanish Grammar Drill - Grammardrillo</title>
+    <title>Spanish Grammar Drill</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        html {
-            height: 100%;
-        }
-    </script>
-</body>
-</html>
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -26,8 +19,6 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            margin: 0;
-            overflow-x: hidden;
         }
 
         .container {
@@ -38,7 +29,6 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
-            position: relative;
         }
 
         h1 {
@@ -172,7 +162,7 @@
         }
 
         .hidden {
-            display: none !important;
+            display: none;
         }
 
         .verb-info {
@@ -228,12 +218,66 @@
             color: #ff6b6b;
             font-weight: bold;
             margin-bottom: 20px;
-            padding: 20px;
+            padding: 30px 20px 20px 20px;
             background: #ffe6e6;
             border-radius: 10px;
             text-align: center;
             display: block !important;
+            position: relative;
         }
+        
+        .tense-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: normal;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            animation: badgeAppear 0.5s ease-out;
+            cursor: default;
+            user-select: none;
+        }
+        
+        @keyframes badgeAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-10px);
+            }
+            50% {
+                transform: scale(1.1) translateY(0);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .tense-badge:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
+        }
+        
+        .tense-badge.present { background: #48bb78; }
+        .tense-badge.present:hover { box-shadow: 0 4px 15px rgba(72, 187, 120, 0.5); }
+        
+        .tense-badge.past { background: #f56565; }
+        .tense-badge.past:hover { box-shadow: 0 4px 15px rgba(245, 101, 101, 0.5); }
+        
+        .tense-badge.future { background: #4299e1; }
+        .tense-badge.future:hover { box-shadow: 0 4px 15px rgba(66, 153, 225, 0.5); }
+        
+        .tense-badge.present-perfect { background: #9f7aea; }
+        .tense-badge.present-perfect:hover { box-shadow: 0 4px 15px rgba(159, 122, 234, 0.5); }
+        
+        .tense-badge.past-perfect { background: #ed8936; }
+        .tense-badge.past-perfect:hover { box-shadow: 0 4px 15px rgba(237, 137, 54, 0.5); }
         
         .spanish {
             font-size: 22px;
@@ -268,7 +312,7 @@
         }
         
         #testContainer:after {
-            content: 'Tap para revelar';
+            content: 'Toca para revelar';
             position: absolute;
             bottom: 10px;
             right: 10px;
@@ -282,13 +326,8 @@
         }
         
         @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            
             .container {
                 padding: 20px;
-                max-width: 100%;
             }
             
             button {
@@ -303,6 +342,26 @@
             .nav-button {
                 margin: 5px;
             }
+            
+            .tense-badge {
+                animation: badgeAppear 0.5s ease-out, pulseMobile 2s ease-in-out infinite;
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+            
+            .russian {
+                font-size: 24px;
+                padding: 35px 15px 15px 15px;
+            }
+        }
+        
+        @keyframes pulseMobile {
+            0%, 100% {
+                box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+            }
+            50% {
+                box-shadow: 0 2px 20px rgba(255, 107, 107, 0.6);
+            }
         }
     </style>
 </head>
@@ -310,10 +369,10 @@
     <div class="container">
         <!-- Welcome Screen -->
         <div id="welcomeScreen" class="screen">
-            <h1>¡Bienvenido!</h1>
+            <h1>¡Bienvenido, estudiante!</h1>
             <p class="welcome-text">¡Vamos a conseguirte fluidez en español AHORA!</p>
             <p style="font-size: 14px; color: #718096; margin-top: 20px;">✨ Funciona sin conexión - ¡no requiere internet!</p>
-            <button id="startButton" onclick="showMainMenu()">¡VAMOS!</button>
+            <button onclick="showMainMenu()">¡VAMOS!</button>
         </div>
 
         <!-- Main Menu -->
@@ -325,11 +384,13 @@
 
         <!-- Exercises Menu -->
         <div id="exercisesMenu" class="screen hidden">
-            <h2>Gramática Básica</h2>
+            <h2>Gramática Principal</h2>
             <button class="menu-button" onclick="startPresentSimple()">Presente</button>
             <button class="menu-button" onclick="startPastSimple()">Pretérito</button>
             <button class="menu-button" onclick="startFutureSimple()">Futuro</button>
-            <button class="back-button" onclick="showMainMenu()">Volver al Menú</button>
+            <button class="menu-button" onclick="startPresentPerfect()">Pretérito Perfecto</button>
+            <button class="menu-button" onclick="startPastPerfect()">Pluscuamperfecto</button>
+            <button class="back-button" onclick="showMainMenu()">Volver al Menú Principal</button>
         </div>
 
         <!-- Present Exercise -->
@@ -359,38 +420,6 @@
                 <div class="button-row">
                     <button class="nav-button" onclick="playAudioPresent()">🔊 Reproducir</button>
                     <button class="nav-button" id="changeWordBtn" onclick="changeVerb()">Cambiar Verbo</button>
-                </div>
-                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
-            </div>
-        </div>
-
-        <!-- Past Exercise -->
-        <div id="pastSimple" class="screen hidden">
-            <h2>Pretérito</h2>
-            <p class="exercise-title">Practica cambiando sujetos con el tiempo pasado</p>
-            
-            <div class="verb-info" id="currentVerbPast">Verbo actual: ser</div>
-            <div class="scheme-info" id="schemeInfoPast">Cargando...</div>
-            
-            <div class="exercise-container">
-                <div id="sentenceDisplayPast">
-                    <div class="sentence" id="sentencePast1">Cargando...</div>
-                    <div class="sentence" id="sentencePast2">Cargando...</div>
-                    <div class="sentence" id="sentencePast3">Cargando...</div>
-                    <div class="sentence" id="sentencePast4">Cargando...</div>
-                </div>
-            </div>
-
-            <div id="errorMessagePast" class="error-message hidden"></div>
-
-            <div class="navigation-buttons">
-                <div class="button-row">
-                    <button class="nav-button" id="backBtnPast" onclick="previousSubjectPast()">Atrás</button>
-                    <button class="nav-button next-button" id="nextBtnPast" onclick="nextSubjectPast()">Siguiente</button>
-                </div>
-                <div class="button-row">
-                    <button class="nav-button" onclick="playAudioPast()">🔊 Reproducir</button>
-                    <button class="nav-button" id="changeWordBtnPast" onclick="changeVerbPast()">Cambiar Verbo</button>
                 </div>
                 <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
             </div>
@@ -428,10 +457,107 @@
             </div>
         </div>
 
+        <!-- Past Exercise -->
+        <div id="pastSimple" class="screen hidden">
+            <h2>Pretérito</h2>
+            <p class="exercise-title">Practica cambiando sujetos con el tiempo pasado</p>
+            
+            <div class="verb-info" id="currentVerbPast">Verbo actual: ser</div>
+            <div class="scheme-info" id="schemeInfoPast">Cargando...</div>
+            
+            <div class="exercise-container">
+                <div id="sentenceDisplayPast">
+                    <div class="sentence" id="sentencePast1">Cargando...</div>
+                    <div class="sentence" id="sentencePast2">Cargando...</div>
+                    <div class="sentence" id="sentencePast3">Cargando...</div>
+                    <div class="sentence" id="sentencePast4">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="errorMessagePast" class="error-message hidden"></div>
+
+            <div class="navigation-buttons">
+                <div class="button-row">
+                    <button class="nav-button" id="backBtnPast" onclick="previousSubjectPast()">Atrás</button>
+                    <button class="nav-button next-button" id="nextBtnPast" onclick="nextSubjectPast()">Siguiente</button>
+                </div>
+                <div class="button-row">
+                    <button class="nav-button" onclick="playAudioPast()">🔊 Reproducir</button>
+                    <button class="nav-button" id="changeWordBtnPast" onclick="changeVerbPast()">Cambiar Verbo</button>
+                </div>
+                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
+            </div>
+        </div>
+
+        <!-- Present Perfect Exercise -->
+        <div id="presentPerfect" class="screen hidden">
+            <h2>Pretérito Perfecto</h2>
+            <p class="exercise-title">Practica cambiando sujetos con el pretérito perfecto</p>
+            
+            <div class="verb-info" id="currentVerbPresentPerfect">Verbo actual: ser</div>
+            <div class="scheme-info" id="schemeInfoPresentPerfect">Cargando...</div>
+            
+            <div class="exercise-container">
+                <div id="sentenceDisplayPresentPerfect">
+                    <div class="sentence" id="sentencePresentPerfect1">Cargando...</div>
+                    <div class="sentence" id="sentencePresentPerfect2">Cargando...</div>
+                    <div class="sentence" id="sentencePresentPerfect3">Cargando...</div>
+                    <div class="sentence" id="sentencePresentPerfect4">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="errorMessagePresentPerfect" class="error-message hidden"></div>
+
+            <div class="navigation-buttons">
+                <div class="button-row">
+                    <button class="nav-button" id="backBtnPresentPerfect" onclick="previousSubjectPresentPerfect()">Atrás</button>
+                    <button class="nav-button next-button" id="nextBtnPresentPerfect" onclick="nextSubjectPresentPerfect()">Siguiente</button>
+                </div>
+                <div class="button-row">
+                    <button class="nav-button" onclick="playAudioPresentPerfect()">🔊 Reproducir</button>
+                    <button class="nav-button" id="changeWordBtnPresentPerfect" onclick="changeVerbPresentPerfect()">Cambiar Verbo</button>
+                </div>
+                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
+            </div>
+        </div>
+
+        <!-- Past Perfect Exercise -->
+        <div id="pastPerfect" class="screen hidden">
+            <h2>Pluscuamperfecto</h2>
+            <p class="exercise-title">Practica cambiando sujetos con el pluscuamperfecto</p>
+            
+            <div class="verb-info" id="currentVerbPastPerfect">Verbo actual: ser</div>
+            <div class="scheme-info" id="schemeInfoPastPerfect">Cargando...</div>
+            
+            <div class="exercise-container">
+                <div id="sentenceDisplayPastPerfect">
+                    <div class="sentence" id="sentencePastPerfect1">Cargando...</div>
+                    <div class="sentence" id="sentencePastPerfect2">Cargando...</div>
+                    <div class="sentence" id="sentencePastPerfect3">Cargando...</div>
+                    <div class="sentence" id="sentencePastPerfect4">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="errorMessagePastPerfect" class="error-message hidden"></div>
+
+            <div class="navigation-buttons">
+                <div class="button-row">
+                    <button class="nav-button" id="backBtnPastPerfect" onclick="previousSubjectPastPerfect()">Atrás</button>
+                    <button class="nav-button next-button" id="nextBtnPastPerfect" onclick="nextSubjectPastPerfect()">Siguiente</button>
+                </div>
+                <div class="button-row">
+                    <button class="nav-button" onclick="playAudioPastPerfect()">🔊 Reproducir</button>
+                    <button class="nav-button" id="changeWordBtnPastPerfect" onclick="changeVerbPastPerfect()">Cambiar Verbo</button>
+                </div>
+                <button class="back-button" onclick="showExercises()">Volver a Ejercicios</button>
+            </div>
+        </div>
+
         <!-- Test Yourself -->
         <div id="testYourself" class="screen hidden">
             <h2>Ponte a Prueba</h2>
-            <p class="exercise-title">Traduce esta oración y ponla en forma negativa, interrogativa e interrogativa con pronombre.<br>Toca el ejemplo para ver la traducción.</p>
+            <p style="font-size: 14px; color: #718096; margin-bottom: 10px;">Los 5 tiempos: Presente, Pretérito, Futuro, Pretérito Perfecto, Pluscuamperfecto</p>
+            <p class="exercise-title">Traduce esta oración y ponla en forma negativa, interrogativa e interrogativa con pronombre.<br><strong>¡Presta atención a la etiqueta del tiempo!</strong> El tiempo requerido se muestra en la etiqueta de color.<br>Toca el ejemplo para ver la traducción.</p>
             
             <div class="exercise-container" id="testContainer" onclick="revealNext()">
                 <div class="test-item">
@@ -447,14 +573,24 @@
             
             <div class="navigation-buttons">
                 <button class="nav-button" onclick="generateNewTest()">Nuevo Ejemplo</button>
-                <button class="back-button" onclick="showMainMenu()">Volver al Menú</button>
+                <button class="back-button" onclick="showMainMenu()">Volver al Menú Principal</button>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 15px; background: #f7fafc; border-radius: 10px; text-align: center;">
+                <p style="font-size: 12px; color: #718096; margin-bottom: 10px;">Guía de colores del tiempo:</p>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                    <span style="background: #48bb78; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px;">Presente</span>
+                    <span style="background: #f56565; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px;">Pretérito</span>
+                    <span style="background: #4299e1; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px;">Futuro</span>
+                    <span style="background: #9f7aea; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px;">Pretérito Perfecto</span>
+                    <span style="background: #ed8936; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px;">Pluscuamperfecto</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Spanish Verb Dictionary
-        // Spanish Verb Dictionary
+        // Spanish Verb Dictionary with all 5 tenses
         const verbDictionary = {
             // SER verb (to be - permanent)
             'ser': {
@@ -502,898 +638,113 @@
                         russian: 'вы есть (постоянно)'
                     },
                     'ellos': {
-                        positive: 'ellos son',
-                        negative: 'ellos no son',
-                        question: '¿son ellos?',
-                        whQuestion: '¿quiénes son ellos?',
-                        russian: 'они есть (постоянно)'
-                    }
-                },
-                past: {
-                    'yo': {
-                        positive: 'yo fui',
-                        negative: 'yo no fui',
-                        question: '¿fui yo?',
-                        whQuestion: '¿quién fui yo?',
-                        russian: 'Я был/была'
-                    },
-                    'tú': {
-                        positive: 'tú fuiste',
-                        negative: 'tú no fuiste',
-                        question: '¿fuiste tú?',
-                        whQuestion: '¿quién fuiste tú?',
-                        russian: 'ты был/была'
-                    },
-                    'él': {
-                        positive: 'él fue',
-                        negative: 'él no fue',
-                        question: '¿fue él?',
-                        whQuestion: '¿quién fue él?',
-                        russian: 'он был'
-                    },
-                    'ella': {
-                        positive: 'ella fue',
-                        negative: 'ella no fue',
-                        question: '¿fue ella?',
-                        whQuestion: '¿quién fue ella?',
-                        russian: 'она была'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros fuimos',
-                        negative: 'nosotros no fuimos',
-                        question: '¿fuimos nosotros?',
-                        whQuestion: '¿quiénes fuimos nosotros?',
-                        russian: 'мы были'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros fuisteis',
-                        negative: 'vosotros no fuisteis',
-                        question: '¿fuisteis vosotros?',
-                        whQuestion: '¿quiénes fuisteis vosotros?',
-                        russian: 'вы были'
-                    },
-                    'ellos': {
-                        positive: 'ellos fueron',
-                        negative: 'ellos no fueron',
-                        question: '¿fueron ellos?',
-                        whQuestion: '¿quiénes fueron ellos?',
-                        russian: 'они были'
-                    }
-                },
-                future: {
-                    'yo': {
-                        positive: 'yo seré',
-                        negative: 'yo no seré',
-                        question: '¿seré yo?',
-                        whQuestion: '¿quién seré yo?',
-                        russian: 'Я буду'
-                    },
-                    'tú': {
-                        positive: 'tú serás',
-                        negative: 'tú no serás',
-                        question: '¿serás tú?',
-                        whQuestion: '¿quién serás tú?',
-                        russian: 'ты будешь'
-                    },
-                    'él': {
-                        positive: 'él será',
-                        negative: 'él no será',
-                        question: '¿será él?',
-                        whQuestion: '¿quién será él?',
-                        russian: 'он будет'
-                    },
-                    'ella': {
-                        positive: 'ella será',
-                        negative: 'ella no será',
-                        question: '¿será ella?',
-                        whQuestion: '¿quién será ella?',
-                        russian: 'она будет'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros seremos',
-                        negative: 'nosotros no seremos',
-                        question: '¿seremos nosotros?',
-                        whQuestion: '¿quiénes seremos nosotros?',
-                        russian: 'мы будем'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros seréis',
-                        negative: 'vosotros no seréis',
-                        question: '¿seréis vosotros?',
-                        whQuestion: '¿quiénes seréis vosotros?',
-                        russian: 'вы будете'
-                    },
-                    'ellos': {
-                        positive: 'ellos serán',
-                        negative: 'ellos no serán',
-                        question: '¿serán ellos?',
-                        whQuestion: '¿quiénes serán ellos?',
-                        russian: 'они будут'
-                    }
-                }
-            },
-
-            // ESTAR verb (to be - temporary)
-            'estar': {
-                present: {
-                    'yo': {
-                        positive: 'yo estoy',
-                        negative: 'yo no estoy',
-                        question: '¿estoy yo?',
-                        whQuestion: '¿dónde estoy yo?',
-                        russian: 'Я есть (временно)'
-                    },
-                    'tú': {
-                        positive: 'tú estás',
-                        negative: 'tú no estás',
-                        question: '¿estás tú?',
-                        whQuestion: '¿dónde estás tú?',
-                        russian: 'ты есть (временно)'
-                    },
-                    'él': {
-                        positive: 'él está',
-                        negative: 'él no está',
-                        question: '¿está él?',
-                        whQuestion: '¿dónde está él?',
-                        russian: 'он есть (временно)'
-                    },
-                    'ella': {
-                        positive: 'ella está',
-                        negative: 'ella no está',
-                        question: '¿está ella?',
-                        whQuestion: '¿dónde está ella?',
-                        russian: 'она есть (временно)'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros estamos',
-                        negative: 'nosotros no estamos',
-                        question: '¿estamos nosotros?',
-                        whQuestion: '¿dónde estamos nosotros?',
-                        russian: 'мы есть (временно)'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros estáis',
-                        negative: 'vosotros no estáis',
-                        question: '¿estáis vosotros?',
-                        whQuestion: '¿dónde estáis vosotros?',
-                        russian: 'вы есть (временно)'
-                    },
-                    'ellos': {
-                        positive: 'ellos están',
-                        negative: 'ellos no están',
-                        question: '¿están ellos?',
-                        whQuestion: '¿dónde están ellos?',
-                        russian: 'они есть (временно)'
-                    }
-                },
-                past: {
-                    'yo': {
-                        positive: 'yo estuve',
-                        negative: 'yo no estuve',
-                        question: '¿estuve yo?',
-                        whQuestion: '¿dónde estuve yo?',
-                        russian: 'Я был/была (где-то)'
-                    },
-                    'tú': {
-                        positive: 'tú estuviste',
-                        negative: 'tú no estuviste',
-                        question: '¿estuviste tú?',
-                        whQuestion: '¿dónde estuviste tú?',
-                        russian: 'ты был/была (где-то)'
-                    },
-                    'él': {
-                        positive: 'él estuvo',
-                        negative: 'él no estuvo',
-                        question: '¿estuvo él?',
-                        whQuestion: '¿dónde estuvo él?',
-                        russian: 'он был (где-то)'
-                    },
-                    'ella': {
-                        positive: 'ella estuvo',
-                        negative: 'ella no estuvo',
-                        question: '¿estuvo ella?',
-                        whQuestion: '¿dónde estuvo ella?',
-                        russian: 'она была (где-то)'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros estuvimos',
-                        negative: 'nosotros no estuvimos',
-                        question: '¿estuvimos nosotros?',
-                        whQuestion: '¿dónde estuvimos nosotros?',
-                        russian: 'мы были (где-то)'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros estuvisteis',
-                        negative: 'vosotros no estuvisteis',
-                        question: '¿estuvisteis vosotros?',
-                        whQuestion: '¿dónde estuvisteis vosotros?',
-                        russian: 'вы были (где-то)'
-                    },
-                    'ellos': {
-                        positive: 'ellos estuvieron',
-                        negative: 'ellos no estuvieron',
-                        question: '¿estuvieron ellos?',
-                        whQuestion: '¿dónde estuvieron ellos?',
-                        russian: 'они были (где-то)'
-                    }
-                },
-                future: {
-                    'yo': {
-                        positive: 'yo estaré',
-                        negative: 'yo no estaré',
-                        question: '¿estaré yo?',
-                        whQuestion: '¿dónde estaré yo?',
-                        russian: 'Я буду (где-то)'
-                    },
-                    'tú': {
-                        positive: 'tú estarás',
-                        negative: 'tú no estarás',
-                        question: '¿estarás tú?',
-                        whQuestion: '¿dónde estarás tú?',
-                        russian: 'ты будешь (где-то)'
-                    },
-                    'él': {
-                        positive: 'él estará',
-                        negative: 'él no estará',
-                        question: '¿estará él?',
-                        whQuestion: '¿dónde estará él?',
-                        russian: 'он будет (где-то)'
-                    },
-                    'ella': {
-                        positive: 'ella estará',
-                        negative: 'ella no estará',
-                        question: '¿estará ella?',
-                        whQuestion: '¿dónde estará ella?',
-                        russian: 'она будет (где-то)'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros estaremos',
-                        negative: 'nosotros no estaremos',
-                        question: '¿estaremos nosotros?',
-                        whQuestion: '¿dónde estaremos nosotros?',
-                        russian: 'мы будем (где-то)'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros estaréis',
-                        negative: 'vosotros no estaréis',
-                        question: '¿estaréis vosotros?',
-                        whQuestion: '¿dónde estaréis vosotros?',
-                        russian: 'вы будете (где-то)'
-                    },
-                    'ellos': {
-                        positive: 'ellos estarán',
-                        negative: 'ellos no estarán',
-                        question: '¿estarán ellos?',
-                        whQuestion: '¿dónde estarán ellos?',
-                        russian: 'они будут (где-то)'
-                    }
-                }
-            },
-
-            // TENER verb (to have)
-            'tener': {
-                present: {
-                    'yo': {
-                        positive: 'yo tengo',
-                        negative: 'yo no tengo',
-                        question: '¿tengo yo?',
-                        whQuestion: '¿qué tengo yo?',
-                        russian: 'Я имею'
-                    },
-                    'tú': {
-                        positive: 'tú tienes',
-                        negative: 'tú no tienes',
-                        question: '¿tienes tú?',
-                        whQuestion: '¿qué tienes tú?',
-                        russian: 'ты имеешь'
-                    },
-                    'él': {
-                        positive: 'él tiene',
-                        negative: 'él no tiene',
-                        question: '¿tiene él?',
-                        whQuestion: '¿qué tiene él?',
-                        russian: 'он имеет'
-                    },
-                    'ella': {
-                        positive: 'ella tiene',
-                        negative: 'ella no tiene',
-                        question: '¿tiene ella?',
-                        whQuestion: '¿qué tiene ella?',
-                        russian: 'она имеет'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros tenemos',
-                        negative: 'nosotros no tenemos',
-                        question: '¿tenemos nosotros?',
-                        whQuestion: '¿qué tenemos nosotros?',
-                        russian: 'мы имеем'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros tenéis',
-                        negative: 'vosotros no tenéis',
-                        question: '¿tenéis vosotros?',
-                        whQuestion: '¿qué tenéis vosotros?',
-                        russian: 'вы имеете'
-                    },
-                    'ellos': {
-                        positive: 'ellos tienen',
-                        negative: 'ellos no tienen',
-                        question: '¿tienen ellos?',
-                        whQuestion: '¿qué tienen ellos?',
-                        russian: 'они имеют'
-                    }
-                },
-                past: {
-                    'yo': {
-                        positive: 'yo tuve',
-                        negative: 'yo no tuve',
-                        question: '¿tuve yo?',
-                        whQuestion: '¿qué tuve yo?',
-                        russian: 'Я имел/имела'
-                    },
-                    'tú': {
-                        positive: 'tú tuviste',
-                        negative: 'tú no tuviste',
-                        question: '¿tuviste tú?',
-                        whQuestion: '¿qué tuviste tú?',
-                        russian: 'ты имел/имела'
-                    },
-                    'él': {
-                        positive: 'él tuvo',
-                        negative: 'él no tuvo',
-                        question: '¿tuvo él?',
-                        whQuestion: '¿qué tuvo él?',
-                        russian: 'он имел'
-                    },
-                    'ella': {
-                        positive: 'ella tuvo',
-                        negative: 'ella no tuvo',
-                        question: '¿tuvo ella?',
-                        whQuestion: '¿qué tuvo ella?',
-                        russian: 'она имела'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros tuvimos',
-                        negative: 'nosotros no tuvimos',
-                        question: '¿tuvimos nosotros?',
-                        whQuestion: '¿qué tuvimos nosotros?',
-                        russian: 'мы имели'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros tuvisteis',
-                        negative: 'vosotros no tuvisteis',
-                        question: '¿tuvisteis vosotros?',
-                        whQuestion: '¿qué tuvisteis vosotros?',
-                        russian: 'вы имели'
-                    },
-                    'ellos': {
-                        positive: 'ellos tuvieron',
-                        negative: 'ellos no tuvieron',
-                        question: '¿tuvieron ellos?',
-                        whQuestion: '¿qué tuvieron ellos?',
-                        russian: 'они имели'
-                    }
-                },
-                future: {
-                    'yo': {
-                        positive: 'yo tendré',
-                        negative: 'yo no tendré',
-                        question: '¿tendré yo?',
-                        whQuestion: '¿qué tendré yo?',
-                        russian: 'Я буду иметь'
-                    },
-                    'tú': {
-                        positive: 'tú tendrás',
-                        negative: 'tú no tendrás',
-                        question: '¿tendrás tú?',
-                        whQuestion: '¿qué tendrás tú?',
-                        russian: 'ты будешь иметь'
-                    },
-                    'él': {
-                        positive: 'él tendrá',
-                        negative: 'él no tendrá',
-                        question: '¿tendrá él?',
-                        whQuestion: '¿qué tendrá él?',
-                        russian: 'он будет иметь'
-                    },
-                    'ella': {
-                        positive: 'ella tendrá',
-                        negative: 'ella no tendrá',
-                        question: '¿tendrá ella?',
-                        whQuestion: '¿qué tendrá ella?',
-                        russian: 'она будет иметь'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros tendremos',
-                        negative: 'nosotros no tendremos',
-                        question: '¿tendremos nosotros?',
-                        whQuestion: '¿qué tendremos nosotros?',
-                        russian: 'мы будем иметь'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros tendréis',
-                        negative: 'vosotros no tendréis',
-                        question: '¿tendréis vosotros?',
-                        whQuestion: '¿qué tendréis vosotros?',
-                        russian: 'вы будете иметь'
-                    },
-                    'ellos': {
-                        positive: 'ellos tendrán',
-                        negative: 'ellos no tendrán',
-                        question: '¿tendrán ellos?',
-                        whQuestion: '¿qué tendrán ellos?',
-                        russian: 'они будут иметь'
-                    }
-                }
-            },
-
-            // HACER verb (to do/make)
-            'hacer': {
-                present: {
-                    'yo': {
-                        positive: 'yo hago',
-                        negative: 'yo no hago',
-                        question: '¿hago yo?',
-                        whQuestion: '¿qué hago yo?',
-                        russian: 'Я делаю'
-                    },
-                    'tú': {
-                        positive: 'tú haces',
-                        negative: 'tú no haces',
-                        question: '¿haces tú?',
-                        whQuestion: '¿qué haces tú?',
-                        russian: 'ты делаешь'
-                    },
-                    'él': {
-                        positive: 'él hace',
-                        negative: 'él no hace',
-                        question: '¿hace él?',
-                        whQuestion: '¿qué hace él?',
-                        russian: 'он делает'
-                    },
-                    'ella': {
-                        positive: 'ella hace',
-                        negative: 'ella no hace',
-                        question: '¿hace ella?',
-                        whQuestion: '¿qué hace ella?',
-                        russian: 'она делает'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros hacemos',
-                        negative: 'nosotros no hacemos',
-                        question: '¿hacemos nosotros?',
-                        whQuestion: '¿qué hacemos nosotros?',
-                        russian: 'мы делаем'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros hacéis',
-                        negative: 'vosotros no hacéis',
-                        question: '¿hacéis vosotros?',
-                        whQuestion: '¿qué hacéis vosotros?',
-                        russian: 'вы делаете'
-                    },
-                    'ellos': {
-                        positive: 'ellos hacen',
-                        negative: 'ellos no hacen',
-                        question: '¿hacen ellos?',
-                        whQuestion: '¿qué hacen ellos?',
-                        russian: 'они делают'
-                    }
-                },
-                past: {
-                    'yo': {
-                        positive: 'yo hice',
-                        negative: 'yo no hice',
-                        question: '¿hice yo?',
-                        whQuestion: '¿qué hice yo?',
-                        russian: 'Я сделал/сделала'
-                    },
-                    'tú': {
-                        positive: 'tú hiciste',
-                        negative: 'tú no hiciste',
-                        question: '¿hiciste tú?',
-                        whQuestion: '¿qué hiciste tú?',
-                        russian: 'ты сделал/сделала'
-                    },
-                    'él': {
-                        positive: 'él hizo',
-                        negative: 'él no hizo',
-                        question: '¿hizo él?',
-                        whQuestion: '¿qué hizo él?',
-                        russian: 'он сделал'
-                    },
-                    'ella': {
-                        positive: 'ella hizo',
-                        negative: 'ella no hizo',
-                        question: '¿hizo ella?',
-                        whQuestion: '¿qué hizo ella?',
-                        russian: 'она сделала'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros hicimos',
-                        negative: 'nosotros no hicimos',
-                        question: '¿hicimos nosotros?',
-                        whQuestion: '¿qué hicimos nosotros?',
-                        russian: 'мы сделали'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros hicisteis',
-                        negative: 'vosotros no hicisteis',
-                        question: '¿hicisteis vosotros?',
-                        whQuestion: '¿qué hicisteis vosotros?',
-                        russian: 'вы сделали'
-                    },
-                    'ellos': {
-                        positive: 'ellos hicieron',
-                        negative: 'ellos no hicieron',
-                        question: '¿hicieron ellos?',
-                        whQuestion: '¿qué hicieron ellos?',
-                        russian: 'они сделали'
-                    }
-                },
-                future: {
-                    'yo': {
-                        positive: 'yo haré',
-                        negative: 'yo no haré',
-                        question: '¿haré yo?',
-                        whQuestion: '¿qué haré yo?',
-                        russian: 'Я сделаю'
-                    },
-                    'tú': {
-                        positive: 'tú harás',
-                        negative: 'tú no harás',
-                        question: '¿harás tú?',
-                        whQuestion: '¿qué harás tú?',
-                        russian: 'ты сделаешь'
-                    },
-                    'él': {
-                        positive: 'él hará',
-                        negative: 'él no hará',
-                        question: '¿hará él?',
-                        whQuestion: '¿qué hará él?',
-                        russian: 'он сделает'
-                    },
-                    'ella': {
-                        positive: 'ella hará',
-                        negative: 'ella no hará',
-                        question: '¿hará ella?',
-                        whQuestion: '¿qué hará ella?',
-                        russian: 'она сделает'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros haremos',
-                        negative: 'nosotros no haremos',
-                        question: '¿haremos nosotros?',
-                        whQuestion: '¿qué haremos nosotros?',
-                        russian: 'мы сделаем'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros haréis',
-                        negative: 'vosotros no haréis',
-                        question: '¿haréis vosotros?',
-                        whQuestion: '¿qué haréis vosotros?',
-                        russian: 'вы сделаете'
-                    },
-                    'ellos': {
-                        positive: 'ellos harán',
-                        negative: 'ellos no harán',
-                        question: '¿harán ellos?',
-                        whQuestion: '¿qué harán ellos?',
-                        russian: 'они сделают'
-                    }
-                }
-            },
-
-            // IR verb (to go)
-            'ir': {
-                present: {
-                    'yo': {
-                        positive: 'yo voy',
-                        negative: 'yo no voy',
-                        question: '¿voy yo?',
-                        whQuestion: '¿adónde voy yo?',
-                        russian: 'Я иду'
-                    },
-                    'tú': {
-                        positive: 'tú vas',
-                        negative: 'tú no vas',
-                        question: '¿vas tú?',
-                        whQuestion: '¿adónde vas tú?',
-                        russian: 'ты идёшь'
-                    },
-                    'él': {
-                        positive: 'él va',
-                        negative: 'él no va',
-                        question: '¿va él?',
-                        whQuestion: '¿adónde va él?',
-                        russian: 'он идёт'
-                    },
-                    'ella': {
-                        positive: 'ella va',
-                        negative: 'ella no va',
-                        question: '¿va ella?',
-                        whQuestion: '¿adónde va ella?',
-                        russian: 'она идёт'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros vamos',
-                        negative: 'nosotros no vamos',
-                        question: '¿vamos nosotros?',
-                        whQuestion: '¿adónde vamos nosotros?',
-                        russian: 'мы идём'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros vais',
-                        negative: 'vosotros no vais',
-                        question: '¿vais vosotros?',
-                        whQuestion: '¿adónde vais vosotros?',
-                        russian: 'вы идёте'
-                    },
-                    'ellos': {
-                        positive: 'ellos van',
-                        negative: 'ellos no van',
-                        question: '¿van ellos?',
-                        whQuestion: '¿adónde van ellos?',
-                        russian: 'они идут'
-                    }
-                },
-                past: {
-                    'yo': {
-                        positive: 'yo fui',
-                        negative: 'yo no fui',
-                        question: '¿fui yo?',
-                        whQuestion: '¿adónde fui yo?',
-                        russian: 'Я пошёл/пошла'
-                    },
-                    'tú': {
-                        positive: 'tú fuiste',
-                        negative: 'tú no fuiste',
-                        question: '¿fuiste tú?',
-                        whQuestion: '¿adónde fuiste tú?',
-                        russian: 'ты пошёл/пошла'
-                    },
-                    'él': {
-                        positive: 'él fue',
-                        negative: 'él no fue',
-                        question: '¿fue él?',
-                        whQuestion: '¿adónde fue él?',
-                        russian: 'он пошёл'
-                    },
-                    'ella': {
-                        positive: 'ella fue',
-                        negative: 'ella no fue',
-                        question: '¿fue ella?',
-                        whQuestion: '¿adónde fue ella?',
-                        russian: 'она пошла'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros fuimos',
-                        negative: 'nosotros no fuimos',
-                        question: '¿fuimos nosotros?',
-                        whQuestion: '¿adónde fuimos nosotros?',
-                        russian: 'мы пошли'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros fuisteis',
-                        negative: 'vosotros no fuisteis',
-                        question: '¿fuisteis vosotros?',
-                        whQuestion: '¿adónde fuisteis vosotros?',
-                        russian: 'вы пошли'
-                    },
-                    'ellos': {
-                        positive: 'ellos fueron',
-                        negative: 'ellos no fueron',
-                        question: '¿fueron ellos?',
-                        whQuestion: '¿adónde fueron ellos?',
-                        russian: 'они пошли'
-                    }
-                },
-                future: {
-                    'yo': {
-                        positive: 'yo iré',
-                        negative: 'yo no iré',
-                        question: '¿iré yo?',
-                        whQuestion: '¿adónde iré yo?',
-                        russian: 'Я пойду'
-                    },
-                    'tú': {
-                        positive: 'tú irás',
-                        negative: 'tú no irás',
-                        question: '¿irás tú?',
-                        whQuestion: '¿adónde irás tú?',
-                        russian: 'ты пойдёшь'
-                    },
-                    'él': {
-                        positive: 'él irá',
-                        negative: 'él no irá',
-                        question: '¿irá él?',
-                        whQuestion: '¿adónde irá él?',
-                        russian: 'он пойдёт'
-                    },
-                    'ella': {
-                        positive: 'ella irá',
-                        negative: 'ella no irá',
-                        question: '¿irá ella?',
-                        whQuestion: '¿adónde irá ella?',
-                        russian: 'она пойдёт'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros iremos',
-                        negative: 'nosotros no iremos',
-                        question: '¿iremos nosotros?',
-                        whQuestion: '¿adónde iremos nosotros?',
-                        russian: 'мы пойдём'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros iréis',
-                        negative: 'vosotros no iréis',
-                        question: '¿iréis vosotros?',
-                        whQuestion: '¿adónde iréis vosotros?',
-                        russian: 'вы пойдёте'
-                    },
-                    'ellos': {
-                        positive: 'ellos irán',
-                        negative: 'ellos no irán',
-                        question: '¿irán ellos?',
-                        whQuestion: '¿adónde irán ellos?',
-                        russian: 'они пойдут'
-                    }
-                }
-            },
-
-            // PODER verb (can/to be able)
-            'poder': {
-                present: {
-                    'yo': {
-                        positive: 'yo puedo',
-                        negative: 'yo no puedo',
-                        question: '¿puedo yo?',
-                        whQuestion: '¿qué puedo yo hacer?',
-                        russian: 'Я могу'
-                    },
-                    'tú': {
-                        positive: 'tú puedes',
-                        negative: 'tú no puedes',
-                        question: '¿puedes tú?',
-                        whQuestion: '¿qué puedes tú hacer?',
-                        russian: 'ты можешь'
-                    },
-                    'él': {
-                        positive: 'él puede',
-                        negative: 'él no puede',
-                        question: '¿puede él?',
-                        whQuestion: '¿qué puede él hacer?',
-                        russian: 'он может'
-                    },
-                    'ella': {
-                        positive: 'ella puede',
-                        negative: 'ella no puede',
-                        question: '¿puede ella?',
-                        whQuestion: '¿qué puede ella hacer?',
-                        russian: 'она может'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros podemos',
-                        negative: 'nosotros no podemos',
-                        question: '¿podemos nosotros?',
-                        whQuestion: '¿qué podemos nosotros hacer?',
-                        russian: 'мы можем'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros podéis',
-                        negative: 'vosotros no podéis',
-                        question: '¿podéis vosotros?',
-                        whQuestion: '¿qué podéis vosotros hacer?',
-                        russian: 'вы можете'
-                    },
-                    'ellos': {
-                        positive: 'ellos pueden',
-                        negative: 'ellos no pueden',
-                        question: '¿pueden ellos?',
-                        whQuestion: '¿qué pueden ellos hacer?',
-                        russian: 'они могут'
-                    }
-                },
-                past: {
-                    'yo': {
-                        positive: 'yo pude',
-                        negative: 'yo no pude',
-                        question: '¿pude yo?',
-                        whQuestion: '¿qué pude yo hacer?',
-                        russian: 'Я мог/могла'
-                    },
-                    'tú': {
-                        positive: 'tú pudiste',
-                        negative: 'tú no pudiste',
-                        question: '¿pudiste tú?',
-                        whQuestion: '¿qué pudiste tú hacer?',
-                        russian: 'ты мог/могла'
-                    },
-                    'él': {
-                        positive: 'él pudo',
-                        negative: 'él no pudo',
-                        question: '¿pudo él?',
-                        whQuestion: '¿qué pudo él hacer?',
-                        russian: 'он мог'
-                    },
-                    'ella': {
-                        positive: 'ella pudo',
-                        negative: 'ella no pudo',
-                        question: '¿pudo ella?',
-                        whQuestion: '¿qué pudo ella hacer?',
-                        russian: 'она могла'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros pudimos',
-                        negative: 'nosotros no pudimos',
-                        question: '¿pudimos nosotros?',
-                        whQuestion: '¿qué pudimos nosotros hacer?',
-                        russian: 'мы могли'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros pudisteis',
-                        negative: 'vosotros no pudisteis',
-                        question: '¿pudisteis vosotros?',
-                        whQuestion: '¿qué pudisteis vosotros hacer?',
-                        russian: 'вы могли'
-                    },
-                    'ellos': {
-                        positive: 'ellos pudieron',
-                        negative: 'ellos no pudieron',
-                        question: '¿pudieron ellos?',
-                        whQuestion: '¿qué pudieron ellos hacer?',
-                        russian: 'они могли'
-                    }
-                },
-                future: {
-                    'yo': {
-                        positive: 'yo podré',
-                        negative: 'yo no podré',
-                        question: '¿podré yo?',
-                        whQuestion: '¿qué podré yo hacer?',
-                        russian: 'Я смогу'
-                    },
-                    'tú': {
-                        positive: 'tú podrás',
-                        negative: 'tú no podrás',
-                        question: '¿podrás tú?',
-                        whQuestion: '¿qué podrás tú hacer?',
-                        russian: 'ты сможешь'
-                    },
-                    'él': {
-                        positive: 'él podrá',
-                        negative: 'él no podrá',
-                        question: '¿podrá él?',
-                        whQuestion: '¿qué podrá él hacer?',
-                        russian: 'он сможет'
-                    },
-                    'ella': {
-                        positive: 'ella podrá',
-                        negative: 'ella no podrá',
-                        question: '¿podrá ella?',
-                        whQuestion: '¿qué podrá ella hacer?',
-                        russian: 'она сможет'
-                    },
-                    'nosotros': {
-                        positive: 'nosotros podremos',
-                        negative: 'nosotros no podremos',
-                        question: '¿podremos nosotros?',
-                        whQuestion: '¿qué podremos nosotros hacer?',
-                        russian: 'мы сможем'
-                    },
-                    'vosotros': {
-                        positive: 'vosotros podréis',
-                        negative: 'vosotros no podréis',
-                        question: '¿podréis vosotros?',
-                        whQuestion: '¿qué podréis vosotros hacer?',
-                        russian: 'вы сможете'
-                    },
-                    'ellos': {
                         positive: 'ellos podrán',
                         negative: 'ellos no podrán',
                         question: '¿podrán ellos?',
                         whQuestion: '¿qué podrán ellos hacer?',
                         russian: 'они смогут'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he podido',
+                        negative: 'yo no he podido',
+                        question: '¿he podido yo?',
+                        whQuestion: '¿qué he podido yo hacer?',
+                        russian: 'Я смог/смогла'
+                    },
+                    'tú': {
+                        positive: 'tú has podido',
+                        negative: 'tú no has podido',
+                        question: '¿has podido tú?',
+                        whQuestion: '¿qué has podido tú hacer?',
+                        russian: 'ты смог/смогла'
+                    },
+                    'él': {
+                        positive: 'él ha podido',
+                        negative: 'él no ha podido',
+                        question: '¿ha podido él?',
+                        whQuestion: '¿qué ha podido él hacer?',
+                        russian: 'он смог'
+                    },
+                    'ella': {
+                        positive: 'ella ha podido',
+                        negative: 'ella no ha podido',
+                        question: '¿ha podido ella?',
+                        whQuestion: '¿qué ha podido ella hacer?',
+                        russian: 'она смогла'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos podido',
+                        negative: 'nosotros no hemos podido',
+                        question: '¿hemos podido nosotros?',
+                        whQuestion: '¿qué hemos podido nosotros hacer?',
+                        russian: 'мы смогли'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis podido',
+                        negative: 'vosotros no habéis podido',
+                        question: '¿habéis podido vosotros?',
+                        whQuestion: '¿qué habéis podido vosotros hacer?',
+                        russian: 'вы смогли'
+                    },
+                    'ellos': {
+                        positive: 'ellos han podido',
+                        negative: 'ellos no han podido',
+                        question: '¿han podido ellos?',
+                        whQuestion: '¿qué han podido ellos hacer?',
+                        russian: 'они смогли'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había podido',
+                        negative: 'yo no había podido',
+                        question: '¿había podido yo?',
+                        whQuestion: '¿qué había podido yo hacer?',
+                        russian: 'Я смог/смогла (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías podido',
+                        negative: 'tú no habías podido',
+                        question: '¿habías podido tú?',
+                        whQuestion: '¿qué habías podido tú hacer?',
+                        russian: 'ты смог/смогла (до того)'
+                    },
+                    'él': {
+                        positive: 'él había podido',
+                        negative: 'él no había podido',
+                        question: '¿había podido él?',
+                        whQuestion: '¿qué había podido él hacer?',
+                        russian: 'он смог (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había podido',
+                        negative: 'ella no había podido',
+                        question: '¿había podido ella?',
+                        whQuestion: '¿qué había podido ella hacer?',
+                        russian: 'она смогла (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos podido',
+                        negative: 'nosotros no habíamos podido',
+                        question: '¿habíamos podido nosotros?',
+                        whQuestion: '¿qué habíamos podido nosotros hacer?',
+                        russian: 'мы смогли (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais podido',
+                        negative: 'vosotros no habíais podido',
+                        question: '¿habíais podido vosotros?',
+                        whQuestion: '¿qué habíais podido vosotros hacer?',
+                        russian: 'вы смогли (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían podido',
+                        negative: 'ellos no habían podido',
+                        question: '¿habían podido ellos?',
+                        whQuestion: '¿qué habían podido ellos hacer?',
+                        russian: 'они смогли (до того)'
                     }
                 }
             },
@@ -1552,6 +903,108 @@
                         whQuestion: '¿qué dirán ellos?',
                         russian: 'они скажут'
                     }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he dicho',
+                        negative: 'yo no he dicho',
+                        question: '¿he dicho yo?',
+                        whQuestion: '¿qué he dicho yo?',
+                        russian: 'Я сказал/сказала'
+                    },
+                    'tú': {
+                        positive: 'tú has dicho',
+                        negative: 'tú no has dicho',
+                        question: '¿has dicho tú?',
+                        whQuestion: '¿qué has dicho tú?',
+                        russian: 'ты сказал/сказала'
+                    },
+                    'él': {
+                        positive: 'él ha dicho',
+                        negative: 'él no ha dicho',
+                        question: '¿ha dicho él?',
+                        whQuestion: '¿qué ha dicho él?',
+                        russian: 'он сказал'
+                    },
+                    'ella': {
+                        positive: 'ella ha dicho',
+                        negative: 'ella no ha dicho',
+                        question: '¿ha dicho ella?',
+                        whQuestion: '¿qué ha dicho ella?',
+                        russian: 'она сказала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos dicho',
+                        negative: 'nosotros no hemos dicho',
+                        question: '¿hemos dicho nosotros?',
+                        whQuestion: '¿qué hemos dicho nosotros?',
+                        russian: 'мы сказали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis dicho',
+                        negative: 'vosotros no habéis dicho',
+                        question: '¿habéis dicho vosotros?',
+                        whQuestion: '¿qué habéis dicho vosotros?',
+                        russian: 'вы сказали'
+                    },
+                    'ellos': {
+                        positive: 'ellos han dicho',
+                        negative: 'ellos no han dicho',
+                        question: '¿han dicho ellos?',
+                        whQuestion: '¿qué han dicho ellos?',
+                        russian: 'они сказали'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había dicho',
+                        negative: 'yo no había dicho',
+                        question: '¿había dicho yo?',
+                        whQuestion: '¿qué había dicho yo?',
+                        russian: 'Я сказал/сказала (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías dicho',
+                        negative: 'tú no habías dicho',
+                        question: '¿habías dicho tú?',
+                        whQuestion: '¿qué habías dicho tú?',
+                        russian: 'ты сказал/сказала (до того)'
+                    },
+                    'él': {
+                        positive: 'él había dicho',
+                        negative: 'él no había dicho',
+                        question: '¿había dicho él?',
+                        whQuestion: '¿qué había dicho él?',
+                        russian: 'он сказал (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había dicho',
+                        negative: 'ella no había dicho',
+                        question: '¿había dicho ella?',
+                        whQuestion: '¿qué había dicho ella?',
+                        russian: 'она сказала (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos dicho',
+                        negative: 'nosotros no habíamos dicho',
+                        question: '¿habíamos dicho nosotros?',
+                        whQuestion: '¿qué habíamos dicho nosotros?',
+                        russian: 'мы сказали (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais dicho',
+                        negative: 'vosotros no habíais dicho',
+                        question: '¿habíais dicho vosotros?',
+                        whQuestion: '¿qué habíais dicho vosotros?',
+                        russian: 'вы сказали (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían dicho',
+                        negative: 'ellos no habían dicho',
+                        question: '¿habían dicho ellos?',
+                        whQuestion: '¿qué habían dicho ellos?',
+                        russian: 'они сказали (до того)'
+                    }
                 }
             },
 
@@ -1708,6 +1161,108 @@
                         question: '¿darán ellos?',
                         whQuestion: '¿qué darán ellos?',
                         russian: 'они дадут'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he dado',
+                        negative: 'yo no he dado',
+                        question: '¿he dado yo?',
+                        whQuestion: '¿qué he dado yo?',
+                        russian: 'Я дал/дала'
+                    },
+                    'tú': {
+                        positive: 'tú has dado',
+                        negative: 'tú no has dado',
+                        question: '¿has dado tú?',
+                        whQuestion: '¿qué has dado tú?',
+                        russian: 'ты дал/дала'
+                    },
+                    'él': {
+                        positive: 'él ha dado',
+                        negative: 'él no ha dado',
+                        question: '¿ha dado él?',
+                        whQuestion: '¿qué ha dado él?',
+                        russian: 'он дал'
+                    },
+                    'ella': {
+                        positive: 'ella ha dado',
+                        negative: 'ella no ha dado',
+                        question: '¿ha dado ella?',
+                        whQuestion: '¿qué ha dado ella?',
+                        russian: 'она дала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos dado',
+                        negative: 'nosotros no hemos dado',
+                        question: '¿hemos dado nosotros?',
+                        whQuestion: '¿qué hemos dado nosotros?',
+                        russian: 'мы дали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis dado',
+                        negative: 'vosotros no habéis dado',
+                        question: '¿habéis dado vosotros?',
+                        whQuestion: '¿qué habéis dado vosotros?',
+                        russian: 'вы дали'
+                    },
+                    'ellos': {
+                        positive: 'ellos han dado',
+                        negative: 'ellos no han dado',
+                        question: '¿han dado ellos?',
+                        whQuestion: '¿qué han dado ellos?',
+                        russian: 'они дали'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había dado',
+                        negative: 'yo no había dado',
+                        question: '¿había dado yo?',
+                        whQuestion: '¿qué había dado yo?',
+                        russian: 'Я дал/дала (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías dado',
+                        negative: 'tú no habías dado',
+                        question: '¿habías dado tú?',
+                        whQuestion: '¿qué habías dado tú?',
+                        russian: 'ты дал/дала (до того)'
+                    },
+                    'él': {
+                        positive: 'él había dado',
+                        negative: 'él no había dado',
+                        question: '¿había dado él?',
+                        whQuestion: '¿qué había dado él?',
+                        russian: 'он дал (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había dado',
+                        negative: 'ella no había dado',
+                        question: '¿había dado ella?',
+                        whQuestion: '¿qué había dado ella?',
+                        russian: 'она дала (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos dado',
+                        negative: 'nosotros no habíamos dado',
+                        question: '¿habíamos dado nosotros?',
+                        whQuestion: '¿qué habíamos dado nosotros?',
+                        russian: 'мы дали (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais dado',
+                        negative: 'vosotros no habíais dado',
+                        question: '¿habíais dado vosotros?',
+                        whQuestion: '¿qué habíais dado vosotros?',
+                        russian: 'вы дали (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían dado',
+                        negative: 'ellos no habían dado',
+                        question: '¿habían dado ellos?',
+                        whQuestion: '¿qué habían dado ellos?',
+                        russian: 'они дали (до того)'
                     }
                 }
             },
@@ -1866,6 +1421,108 @@
                         whQuestion: '¿qué verán ellos?',
                         russian: 'они увидят'
                     }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he visto',
+                        negative: 'yo no he visto',
+                        question: '¿he visto yo?',
+                        whQuestion: '¿qué he visto yo?',
+                        russian: 'Я видел/видела'
+                    },
+                    'tú': {
+                        positive: 'tú has visto',
+                        negative: 'tú no has visto',
+                        question: '¿has visto tú?',
+                        whQuestion: '¿qué has visto tú?',
+                        russian: 'ты видел/видела'
+                    },
+                    'él': {
+                        positive: 'él ha visto',
+                        negative: 'él no ha visto',
+                        question: '¿ha visto él?',
+                        whQuestion: '¿qué ha visto él?',
+                        russian: 'он видел'
+                    },
+                    'ella': {
+                        positive: 'ella ha visto',
+                        negative: 'ella no ha visto',
+                        question: '¿ha visto ella?',
+                        whQuestion: '¿qué ha visto ella?',
+                        russian: 'она видела'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos visto',
+                        negative: 'nosotros no hemos visto',
+                        question: '¿hemos visto nosotros?',
+                        whQuestion: '¿qué hemos visto nosotros?',
+                        russian: 'мы видели'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis visto',
+                        negative: 'vosotros no habéis visto',
+                        question: '¿habéis visto vosotros?',
+                        whQuestion: '¿qué habéis visto vosotros?',
+                        russian: 'вы видели'
+                    },
+                    'ellos': {
+                        positive: 'ellos han visto',
+                        negative: 'ellos no han visto',
+                        question: '¿han visto ellos?',
+                        whQuestion: '¿qué han visto ellos?',
+                        russian: 'они видели'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había visto',
+                        negative: 'yo no había visto',
+                        question: '¿había visto yo?',
+                        whQuestion: '¿qué había visto yo?',
+                        russian: 'Я видел/видела (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías visto',
+                        negative: 'tú no habías visto',
+                        question: '¿habías visto tú?',
+                        whQuestion: '¿qué habías visto tú?',
+                        russian: 'ты видел/видела (до того)'
+                    },
+                    'él': {
+                        positive: 'él había visto',
+                        negative: 'él no había visto',
+                        question: '¿había visto él?',
+                        whQuestion: '¿qué había visto él?',
+                        russian: 'он видел (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había visto',
+                        negative: 'ella no había visto',
+                        question: '¿había visto ella?',
+                        whQuestion: '¿qué había visto ella?',
+                        russian: 'она видела (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos visto',
+                        negative: 'nosotros no habíamos visto',
+                        question: '¿habíamos visto nosotros?',
+                        whQuestion: '¿qué habíamos visto nosotros?',
+                        russian: 'мы видели (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais visto',
+                        negative: 'vosotros no habíais visto',
+                        question: '¿habíais visto vosotros?',
+                        whQuestion: '¿qué habíais visto vosotros?',
+                        russian: 'вы видели (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían visto',
+                        negative: 'ellos no habían visto',
+                        question: '¿habían visto ellos?',
+                        whQuestion: '¿qué habían visto ellos?',
+                        russian: 'они видели (до того)'
+                    }
                 }
             },
 
@@ -2023,6 +1680,108 @@
                         whQuestion: '¿qué sabrán ellos?',
                         russian: 'они узнают'
                     }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he sabido',
+                        negative: 'yo no he sabido',
+                        question: '¿he sabido yo?',
+                        whQuestion: '¿qué he sabido yo?',
+                        russian: 'Я знал/знала'
+                    },
+                    'tú': {
+                        positive: 'tú has sabido',
+                        negative: 'tú no has sabido',
+                        question: '¿has sabido tú?',
+                        whQuestion: '¿qué has sabido tú?',
+                        russian: 'ты знал/знала'
+                    },
+                    'él': {
+                        positive: 'él ha sabido',
+                        negative: 'él no ha sabido',
+                        question: '¿ha sabido él?',
+                        whQuestion: '¿qué ha sabido él?',
+                        russian: 'он знал'
+                    },
+                    'ella': {
+                        positive: 'ella ha sabido',
+                        negative: 'ella no ha sabido',
+                        question: '¿ha sabido ella?',
+                        whQuestion: '¿qué ha sabido ella?',
+                        russian: 'она знала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos sabido',
+                        negative: 'nosotros no hemos sabido',
+                        question: '¿hemos sabido nosotros?',
+                        whQuestion: '¿qué hemos sabido nosotros?',
+                        russian: 'мы знали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis sabido',
+                        negative: 'vosotros no habéis sabido',
+                        question: '¿habéis sabido vosotros?',
+                        whQuestion: '¿qué habéis sabido vosotros?',
+                        russian: 'вы знали'
+                    },
+                    'ellos': {
+                        positive: 'ellos han sabido',
+                        negative: 'ellos no han sabido',
+                        question: '¿han sabido ellos?',
+                        whQuestion: '¿qué han sabido ellos?',
+                        russian: 'они знали'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había sabido',
+                        negative: 'yo no había sabido',
+                        question: '¿había sabido yo?',
+                        whQuestion: '¿qué había sabido yo?',
+                        russian: 'Я знал/знала (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías sabido',
+                        negative: 'tú no habías sabido',
+                        question: '¿habías sabido tú?',
+                        whQuestion: '¿qué habías sabido tú?',
+                        russian: 'ты знал/знала (до того)'
+                    },
+                    'él': {
+                        positive: 'él había sabido',
+                        negative: 'él no había sabido',
+                        question: '¿había sabido él?',
+                        whQuestion: '¿qué había sabido él?',
+                        russian: 'он знал (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había sabido',
+                        negative: 'ella no había sabido',
+                        question: '¿había sabido ella?',
+                        whQuestion: '¿qué había sabido ella?',
+                        russian: 'она знала (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos sabido',
+                        negative: 'nosotros no habíamos sabido',
+                        question: '¿habíamos sabido nosotros?',
+                        whQuestion: '¿qué habíamos sabido nosotros?',
+                        russian: 'мы знали (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais sabido',
+                        negative: 'vosotros no habíais sabido',
+                        question: '¿habíais sabido vosotros?',
+                        whQuestion: '¿qué habíais sabido vosotros?',
+                        russian: 'вы знали (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían sabido',
+                        negative: 'ellos no habían sabido',
+                        question: '¿habían sabido ellos?',
+                        whQuestion: '¿qué habían sabido ellos?',
+                        russian: 'они знали (до того)'
+                    }
                 }
             }
         };
@@ -2046,6 +1805,14 @@
         let currentVerbFuture = 'ser';
         let currentSubjectIndexFuture = 0;
         
+        // State for Present Perfect
+        let currentVerbPresentPerfect = 'ser';
+        let currentSubjectIndexPresentPerfect = 0;
+        
+        // State for Past Perfect
+        let currentVerbPastPerfect = 'ser';
+        let currentSubjectIndexPastPerfect = 0;
+        
         // Audio settings
         let audioEnabled = true;
         
@@ -2055,46 +1822,15 @@
 
         // Navigation functions
         function showScreen(screenId) {
-            console.log('Showing screen:', screenId);
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.add('hidden');
-                screen.style.display = 'none';
             });
-            const targetScreen = document.getElementById(screenId);
-            if (targetScreen) {
-                targetScreen.classList.remove('hidden');
-                targetScreen.style.display = 'block';
-            } else {
-                console.error('Screen not found:', screenId);
-            }
+            document.getElementById(screenId).classList.remove('hidden');
         }
 
         function showMainMenu() {
-            console.log('showMainMenu called');
             showScreen('mainMenu');
         }
-        
-        // Make functions globally accessible
-        window.showMainMenu = showMainMenu;
-        window.showExercises = showExercises;
-        window.showTestYourself = showTestYourself;
-        window.startPresentSimple = startPresentSimple;
-        window.startPastSimple = startPastSimple;
-        window.startFutureSimple = startFutureSimple;
-        window.previousSubject = previousSubject;
-        window.nextSubject = nextSubject;
-        window.changeVerb = changeVerb;
-        window.previousSubjectPast = previousSubjectPast;
-        window.nextSubjectPast = nextSubjectPast;
-        window.changeVerbPast = changeVerbPast;
-        window.previousSubjectFuture = previousSubjectFuture;
-        window.nextSubjectFuture = nextSubjectFuture;
-        window.changeVerbFuture = changeVerbFuture;
-        window.playAudioPresent = playAudioPresent;
-        window.playAudioPast = playAudioPast;
-        window.playAudioFuture = playAudioFuture;
-        window.generateNewTest = generateNewTest;
-        window.revealNext = revealNext;
 
         function showExercises() {
             showScreen('exercisesMenu');
@@ -2126,6 +1862,146 @@
             showScreen('futureSimple');
             currentSubjectIndexFuture = 0;
             updateFutureSimpleDisplay();
+        }
+
+        function startPresentPerfect() {
+            showScreen('presentPerfect');
+            currentSubjectIndexPresentPerfect = 0;
+            updatePresentPerfectDisplay();
+        }
+
+        function startPastPerfect() {
+            showScreen('pastPerfect');
+            currentSubjectIndexPastPerfect = 0;
+            updatePastPerfectDisplay();
+        }
+
+        // Present Perfect Exercise Functions
+        function updatePresentPerfectDisplay() {
+            if (isLoading) return;
+            
+            const subject = allSubjects[currentSubjectIndexPresentPerfect];
+            
+            try {
+                // Get verb data from dictionary
+                const verbData = verbDictionary[currentVerbPresentPerfect]?.presentPerfect?.[subject];
+                
+                if (verbData) {
+                    document.getElementById('sentencePresentPerfect1').textContent = verbData.positive;
+                    document.getElementById('sentencePresentPerfect2').textContent = verbData.negative;
+                    document.getElementById('sentencePresentPerfect3').textContent = verbData.question;
+                    document.getElementById('sentencePresentPerfect4').textContent = verbData.whQuestion;
+                    
+                    // Update scheme info
+                    const hasForm = ['él', 'ella'].includes(subject) ? 'ha' : 
+                                    ['nosotros', 'vosotros', 'ellos'].includes(subject) ? 
+                                    (subject === 'nosotros' ? 'hemos' : subject === 'vosotros' ? 'habéis' : 'han') : 
+                                    subject === 'yo' ? 'he' : 'has';
+                    document.getElementById('schemeInfoPresentPerfect').textContent = 
+                        `Pretérito Perfecto: ${hasForm} + participio`;
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            
+            // Update verb info
+            document.getElementById('currentVerbPresentPerfect').textContent = `Verbo actual: ${currentVerbPresentPerfect}`;
+        }
+
+        function nextSubjectPresentPerfect() {
+            if (!isLoading) {
+                currentSubjectIndexPresentPerfect++;
+                if (currentSubjectIndexPresentPerfect >= allSubjects.length) {
+                    currentSubjectIndexPresentPerfect = 0;
+                }
+                updatePresentPerfectDisplay();
+            }
+        }
+
+        function previousSubjectPresentPerfect() {
+            if (!isLoading) {
+                currentSubjectIndexPresentPerfect--;
+                if (currentSubjectIndexPresentPerfect < 0) {
+                    currentSubjectIndexPresentPerfect = allSubjects.length - 1;
+                }
+                updatePresentPerfectDisplay();
+            }
+        }
+
+        function changeVerbPresentPerfect() {
+            if (isLoading) return;
+            
+            let newVerb;
+            do {
+                newVerb = verbs[Math.floor(Math.random() * verbs.length)];
+            } while (newVerb === currentVerbPresentPerfect);
+            
+            currentVerbPresentPerfect = newVerb;
+            currentSubjectIndexPresentPerfect = Math.floor(Math.random() * allSubjects.length);
+            
+            updatePresentPerfectDisplay();
+        }
+
+        // Past Perfect Exercise Functions
+        function updatePastPerfectDisplay() {
+            if (isLoading) return;
+            
+            const subject = allSubjects[currentSubjectIndexPastPerfect];
+            
+            try {
+                // Get verb data from dictionary
+                const verbData = verbDictionary[currentVerbPastPerfect]?.pastPerfect?.[subject];
+                
+                if (verbData) {
+                    document.getElementById('sentencePastPerfect1').textContent = verbData.positive;
+                    document.getElementById('sentencePastPerfect2').textContent = verbData.negative;
+                    document.getElementById('sentencePastPerfect3').textContent = verbData.question;
+                    document.getElementById('sentencePastPerfect4').textContent = verbData.whQuestion;
+                    document.getElementById('schemeInfoPastPerfect').textContent = 
+                        'Pluscuamperfecto: había/habías/habíamos/habíais/habían + participio';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+            }
+            
+            // Update verb info
+            document.getElementById('currentVerbPastPerfect').textContent = `Verbo actual: ${currentVerbPastPerfect}`;
+        }
+
+        function nextSubjectPastPerfect() {
+            if (!isLoading) {
+                currentSubjectIndexPastPerfect++;
+                if (currentSubjectIndexPastPerfect >= allSubjects.length) {
+                    currentSubjectIndexPastPerfect = 0;
+                }
+                updatePastPerfectDisplay();
+            }
+        }
+
+        function previousSubjectPastPerfect() {
+            if (!isLoading) {
+                currentSubjectIndexPastPerfect--;
+                if (currentSubjectIndexPastPerfect < 0) {
+                    currentSubjectIndexPastPerfect = allSubjects.length - 1;
+                }
+                updatePastPerfectDisplay();
+            }
+        }
+
+        function changeVerbPastPerfect() {
+            if (isLoading) return;
+            
+            let newVerb;
+            do {
+                newVerb = verbs[Math.floor(Math.random() * verbs.length)];
+            } while (newVerb === currentVerbPastPerfect);
+            
+            currentVerbPastPerfect = newVerb;
+            currentSubjectIndexPastPerfect = Math.floor(Math.random() * allSubjects.length);
+            
+            updatePastPerfectDisplay();
         }
 
         // Future Simple Exercise Functions
@@ -2326,7 +2202,7 @@
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'es-ES'; // Spanish
+                utterance.lang = 'es-ES'; // Spanish (Spain)
                 utterance.rate = 0.9; // Slightly slower for learning
                 utterance.pitch = 1;
                 utterance.volume = 1;
@@ -2393,6 +2269,44 @@
             speakNext();
         }
 
+        function playAudioPresentPerfect() {
+            const sentences = [
+                document.getElementById('sentencePresentPerfect1').textContent,
+                document.getElementById('sentencePresentPerfect2').textContent,
+                document.getElementById('sentencePresentPerfect3').textContent,
+                document.getElementById('sentencePresentPerfect4').textContent
+            ];
+            
+            let index = 0;
+            function speakNext() {
+                if (index < sentences.length) {
+                    speak(sentences[index]);
+                    index++;
+                    setTimeout(speakNext, 2000);
+                }
+            }
+            speakNext();
+        }
+
+        function playAudioPastPerfect() {
+            const sentences = [
+                document.getElementById('sentencePastPerfect1').textContent,
+                document.getElementById('sentencePastPerfect2').textContent,
+                document.getElementById('sentencePastPerfect3').textContent,
+                document.getElementById('sentencePastPerfect4').textContent
+            ];
+            
+            let index = 0;
+            function speakNext() {
+                if (index < sentences.length) {
+                    speak(sentences[index]);
+                    index++;
+                    setTimeout(speakNext, 2000);
+                }
+            }
+            speakNext();
+        }
+
         // Test Yourself Functions
         function generateNewTest() {
             // Reset reveal stage
@@ -2412,7 +2326,7 @@
             // Get random subject, verb, and tense
             const randomSubject = allSubjects[Math.floor(Math.random() * allSubjects.length)];
             const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
-            const tenses = ['present', 'past', 'future'];
+            const tenses = ['present', 'past', 'future', 'presentPerfect', 'pastPerfect'];
             const randomTense = tenses[Math.floor(Math.random() * tenses.length)];
             
             // Get verb data from dictionary
@@ -2421,7 +2335,38 @@
             if (verbData) {
                 // Display Russian translation
                 const russianEl = document.getElementById('russianSentence');
-                russianEl.textContent = verbData.russian;
+                
+                // Create tense badge
+                let tenseDisplayName = '';
+                let tenseClass = '';
+                
+                switch(randomTense) {
+                    case 'present':
+                        tenseDisplayName = 'Presente';
+                        tenseClass = 'present';
+                        break;
+                    case 'past':
+                        tenseDisplayName = 'Pretérito';
+                        tenseClass = 'past';
+                        break;
+                    case 'future':
+                        tenseDisplayName = 'Futuro';
+                        tenseClass = 'future';
+                        break;
+                    case 'presentPerfect':
+                        tenseDisplayName = 'Pretérito Perfecto';
+                        tenseClass = 'present-perfect';
+                        break;
+                    case 'pastPerfect':
+                        tenseDisplayName = 'Pluscuamperfecto';
+                        tenseClass = 'past-perfect';
+                        break;
+                }
+                
+                russianEl.innerHTML = `
+                    <span class="tense-badge ${tenseClass}" aria-label="Usa el tiempo ${tenseDisplayName}">⏱ ${tenseDisplayName}</span>
+                    ${verbData.russian}
+                `;
                 russianEl.classList.remove('hidden');
                 russianEl.style.display = 'block';
                 
@@ -2460,3 +2405,1403 @@
                 }
             }
         }
+    </script>
+</body>
+</html> {
+                        positive: 'ellos son',
+                        negative: 'ellos no son',
+                        question: '¿son ellos?',
+                        whQuestion: '¿quiénes son ellos?',
+                        russian: 'они есть (постоянно)'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo fui',
+                        negative: 'yo no fui',
+                        question: '¿fui yo?',
+                        whQuestion: '¿quién fui yo?',
+                        russian: 'Я был/была'
+                    },
+                    'tú': {
+                        positive: 'tú fuiste',
+                        negative: 'tú no fuiste',
+                        question: '¿fuiste tú?',
+                        whQuestion: '¿quién fuiste tú?',
+                        russian: 'ты был/была'
+                    },
+                    'él': {
+                        positive: 'él fue',
+                        negative: 'él no fue',
+                        question: '¿fue él?',
+                        whQuestion: '¿quién fue él?',
+                        russian: 'он был'
+                    },
+                    'ella': {
+                        positive: 'ella fue',
+                        negative: 'ella no fue',
+                        question: '¿fue ella?',
+                        whQuestion: '¿quién fue ella?',
+                        russian: 'она была'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros fuimos',
+                        negative: 'nosotros no fuimos',
+                        question: '¿fuimos nosotros?',
+                        whQuestion: '¿quiénes fuimos nosotros?',
+                        russian: 'мы были'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros fuisteis',
+                        negative: 'vosotros no fuisteis',
+                        question: '¿fuisteis vosotros?',
+                        whQuestion: '¿quiénes fuisteis vosotros?',
+                        russian: 'вы были'
+                    },
+                    'ellos': {
+                        positive: 'ellos fueron',
+                        negative: 'ellos no fueron',
+                        question: '¿fueron ellos?',
+                        whQuestion: '¿quiénes fueron ellos?',
+                        russian: 'они были'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo seré',
+                        negative: 'yo no seré',
+                        question: '¿seré yo?',
+                        whQuestion: '¿quién seré yo?',
+                        russian: 'Я буду'
+                    },
+                    'tú': {
+                        positive: 'tú serás',
+                        negative: 'tú no serás',
+                        question: '¿serás tú?',
+                        whQuestion: '¿quién serás tú?',
+                        russian: 'ты будешь'
+                    },
+                    'él': {
+                        positive: 'él será',
+                        negative: 'él no será',
+                        question: '¿será él?',
+                        whQuestion: '¿quién será él?',
+                        russian: 'он будет'
+                    },
+                    'ella': {
+                        positive: 'ella será',
+                        negative: 'ella no será',
+                        question: '¿será ella?',
+                        whQuestion: '¿quién será ella?',
+                        russian: 'она будет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros seremos',
+                        negative: 'nosotros no seremos',
+                        question: '¿seremos nosotros?',
+                        whQuestion: '¿quiénes seremos nosotros?',
+                        russian: 'мы будем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros seréis',
+                        negative: 'vosotros no seréis',
+                        question: '¿seréis vosotros?',
+                        whQuestion: '¿quiénes seréis vosotros?',
+                        russian: 'вы будете'
+                    },
+                    'ellos': {
+                        positive: 'ellos serán',
+                        negative: 'ellos no serán',
+                        question: '¿serán ellos?',
+                        whQuestion: '¿quiénes serán ellos?',
+                        russian: 'они будут'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he sido',
+                        negative: 'yo no he sido',
+                        question: '¿he sido yo?',
+                        whQuestion: '¿quién he sido yo?',
+                        russian: 'Я был/была'
+                    },
+                    'tú': {
+                        positive: 'tú has sido',
+                        negative: 'tú no has sido',
+                        question: '¿has sido tú?',
+                        whQuestion: '¿quién has sido tú?',
+                        russian: 'ты был/была'
+                    },
+                    'él': {
+                        positive: 'él ha sido',
+                        negative: 'él no ha sido',
+                        question: '¿ha sido él?',
+                        whQuestion: '¿quién ha sido él?',
+                        russian: 'он был'
+                    },
+                    'ella': {
+                        positive: 'ella ha sido',
+                        negative: 'ella no ha sido',
+                        question: '¿ha sido ella?',
+                        whQuestion: '¿quién ha sido ella?',
+                        russian: 'она была'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos sido',
+                        negative: 'nosotros no hemos sido',
+                        question: '¿hemos sido nosotros?',
+                        whQuestion: '¿quiénes hemos sido nosotros?',
+                        russian: 'мы были'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis sido',
+                        negative: 'vosotros no habéis sido',
+                        question: '¿habéis sido vosotros?',
+                        whQuestion: '¿quiénes habéis sido vosotros?',
+                        russian: 'вы были'
+                    },
+                    'ellos': {
+                        positive: 'ellos han sido',
+                        negative: 'ellos no han sido',
+                        question: '¿han sido ellos?',
+                        whQuestion: '¿quiénes han sido ellos?',
+                        russian: 'они были'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había sido',
+                        negative: 'yo no había sido',
+                        question: '¿había sido yo?',
+                        whQuestion: '¿quién había sido yo?',
+                        russian: 'Я был/была (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías sido',
+                        negative: 'tú no habías sido',
+                        question: '¿habías sido tú?',
+                        whQuestion: '¿quién habías sido tú?',
+                        russian: 'ты был/была (до того)'
+                    },
+                    'él': {
+                        positive: 'él había sido',
+                        negative: 'él no había sido',
+                        question: '¿había sido él?',
+                        whQuestion: '¿quién había sido él?',
+                        russian: 'он был (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había sido',
+                        negative: 'ella no había sido',
+                        question: '¿había sido ella?',
+                        whQuestion: '¿quién había sido ella?',
+                        russian: 'она была (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos sido',
+                        negative: 'nosotros no habíamos sido',
+                        question: '¿habíamos sido nosotros?',
+                        whQuestion: '¿quiénes habíamos sido nosotros?',
+                        russian: 'мы были (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais sido',
+                        negative: 'vosotros no habíais sido',
+                        question: '¿habíais sido vosotros?',
+                        whQuestion: '¿quiénes habíais sido vosotros?',
+                        russian: 'вы были (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían sido',
+                        negative: 'ellos no habían sido',
+                        question: '¿habían sido ellos?',
+                        whQuestion: '¿quiénes habían sido ellos?',
+                        russian: 'они были (до того)'
+                    }
+                }
+            },
+
+            // TENER verb (to have)
+            'tener': {
+                present: {
+                    'yo': {
+                        positive: 'yo tengo',
+                        negative: 'yo no tengo',
+                        question: '¿tengo yo?',
+                        whQuestion: '¿qué tengo yo?',
+                        russian: 'Я имею'
+                    },
+                    'tú': {
+                        positive: 'tú tienes',
+                        negative: 'tú no tienes',
+                        question: '¿tienes tú?',
+                        whQuestion: '¿qué tienes tú?',
+                        russian: 'ты имеешь'
+                    },
+                    'él': {
+                        positive: 'él tiene',
+                        negative: 'él no tiene',
+                        question: '¿tiene él?',
+                        whQuestion: '¿qué tiene él?',
+                        russian: 'он имеет'
+                    },
+                    'ella': {
+                        positive: 'ella tiene',
+                        negative: 'ella no tiene',
+                        question: '¿tiene ella?',
+                        whQuestion: '¿qué tiene ella?',
+                        russian: 'она имеет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros tenemos',
+                        negative: 'nosotros no tenemos',
+                        question: '¿tenemos nosotros?',
+                        whQuestion: '¿qué tenemos nosotros?',
+                        russian: 'мы имеем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros tenéis',
+                        negative: 'vosotros no tenéis',
+                        question: '¿tenéis vosotros?',
+                        whQuestion: '¿qué tenéis vosotros?',
+                        russian: 'вы имеете'
+                    },
+                    'ellos': {
+                        positive: 'ellos tienen',
+                        negative: 'ellos no tienen',
+                        question: '¿tienen ellos?',
+                        whQuestion: '¿qué tienen ellos?',
+                        russian: 'они имеют'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo tuve',
+                        negative: 'yo no tuve',
+                        question: '¿tuve yo?',
+                        whQuestion: '¿qué tuve yo?',
+                        russian: 'Я имел/имела'
+                    },
+                    'tú': {
+                        positive: 'tú tuviste',
+                        negative: 'tú no tuviste',
+                        question: '¿tuviste tú?',
+                        whQuestion: '¿qué tuviste tú?',
+                        russian: 'ты имел/имела'
+                    },
+                    'él': {
+                        positive: 'él tuvo',
+                        negative: 'él no tuvo',
+                        question: '¿tuvo él?',
+                        whQuestion: '¿qué tuvo él?',
+                        russian: 'он имел'
+                    },
+                    'ella': {
+                        positive: 'ella tuvo',
+                        negative: 'ella no tuvo',
+                        question: '¿tuvo ella?',
+                        whQuestion: '¿qué tuvo ella?',
+                        russian: 'она имела'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros tuvimos',
+                        negative: 'nosotros no tuvimos',
+                        question: '¿tuvimos nosotros?',
+                        whQuestion: '¿qué tuvimos nosotros?',
+                        russian: 'мы имели'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros tuvisteis',
+                        negative: 'vosotros no tuvisteis',
+                        question: '¿tuvisteis vosotros?',
+                        whQuestion: '¿qué tuvisteis vosotros?',
+                        russian: 'вы имели'
+                    },
+                    'ellos': {
+                        positive: 'ellos tuvieron',
+                        negative: 'ellos no tuvieron',
+                        question: '¿tuvieron ellos?',
+                        whQuestion: '¿qué tuvieron ellos?',
+                        russian: 'они имели'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo tendré',
+                        negative: 'yo no tendré',
+                        question: '¿tendré yo?',
+                        whQuestion: '¿qué tendré yo?',
+                        russian: 'Я буду иметь'
+                    },
+                    'tú': {
+                        positive: 'tú tendrás',
+                        negative: 'tú no tendrás',
+                        question: '¿tendrás tú?',
+                        whQuestion: '¿qué tendrás tú?',
+                        russian: 'ты будешь иметь'
+                    },
+                    'él': {
+                        positive: 'él tendrá',
+                        negative: 'él no tendrá',
+                        question: '¿tendrá él?',
+                        whQuestion: '¿qué tendrá él?',
+                        russian: 'он будет иметь'
+                    },
+                    'ella': {
+                        positive: 'ella tendrá',
+                        negative: 'ella no tendrá',
+                        question: '¿tendrá ella?',
+                        whQuestion: '¿qué tendrá ella?',
+                        russian: 'она будет иметь'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros tendremos',
+                        negative: 'nosotros no tendremos',
+                        question: '¿tendremos nosotros?',
+                        whQuestion: '¿qué tendremos nosotros?',
+                        russian: 'мы будем иметь'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros tendréis',
+                        negative: 'vosotros no tendréis',
+                        question: '¿tendréis vosotros?',
+                        whQuestion: '¿qué tendréis vosotros?',
+                        russian: 'вы будете иметь'
+                    },
+                    'ellos': {
+                        positive: 'ellos tendrán',
+                        negative: 'ellos no tendrán',
+                        question: '¿tendrán ellos?',
+                        whQuestion: '¿qué tendrán ellos?',
+                        russian: 'они будут иметь'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he tenido',
+                        negative: 'yo no he tenido',
+                        question: '¿he tenido yo?',
+                        whQuestion: '¿qué he tenido yo?',
+                        russian: 'Я имел/имела'
+                    },
+                    'tú': {
+                        positive: 'tú has tenido',
+                        negative: 'tú no has tenido',
+                        question: '¿has tenido tú?',
+                        whQuestion: '¿qué has tenido tú?',
+                        russian: 'ты имел/имела'
+                    },
+                    'él': {
+                        positive: 'él ha tenido',
+                        negative: 'él no ha tenido',
+                        question: '¿ha tenido él?',
+                        whQuestion: '¿qué ha tenido él?',
+                        russian: 'он имел'
+                    },
+                    'ella': {
+                        positive: 'ella ha tenido',
+                        negative: 'ella no ha tenido',
+                        question: '¿ha tenido ella?',
+                        whQuestion: '¿qué ha tenido ella?',
+                        russian: 'она имела'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos tenido',
+                        negative: 'nosotros no hemos tenido',
+                        question: '¿hemos tenido nosotros?',
+                        whQuestion: '¿qué hemos tenido nosotros?',
+                        russian: 'мы имели'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis tenido',
+                        negative: 'vosotros no habéis tenido',
+                        question: '¿habéis tenido vosotros?',
+                        whQuestion: '¿qué habéis tenido vosotros?',
+                        russian: 'вы имели'
+                    },
+                    'ellos': {
+                        positive: 'ellos han tenido',
+                        negative: 'ellos no han tenido',
+                        question: '¿han tenido ellos?',
+                        whQuestion: '¿qué han tenido ellos?',
+                        russian: 'они имели'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había tenido',
+                        negative: 'yo no había tenido',
+                        question: '¿había tenido yo?',
+                        whQuestion: '¿qué había tenido yo?',
+                        russian: 'Я имел/имела (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías tenido',
+                        negative: 'tú no habías tenido',
+                        question: '¿habías tenido tú?',
+                        whQuestion: '¿qué habías tenido tú?',
+                        russian: 'ты имел/имела (до того)'
+                    },
+                    'él': {
+                        positive: 'él había tenido',
+                        negative: 'él no había tenido',
+                        question: '¿había tenido él?',
+                        whQuestion: '¿qué había tenido él?',
+                        russian: 'он имел (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había tenido',
+                        negative: 'ella no había tenido',
+                        question: '¿había tenido ella?',
+                        whQuestion: '¿qué había tenido ella?',
+                        russian: 'она имела (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos tenido',
+                        negative: 'nosotros no habíamos tenido',
+                        question: '¿habíamos tenido nosotros?',
+                        whQuestion: '¿qué habíamos tenido nosotros?',
+                        russian: 'мы имели (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais tenido',
+                        negative: 'vosotros no habíais tenido',
+                        question: '¿habíais tenido vosotros?',
+                        whQuestion: '¿qué habíais tenido vosotros?',
+                        russian: 'вы имели (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían tenido',
+                        negative: 'ellos no habían tenido',
+                        question: '¿habían tenido ellos?',
+                        whQuestion: '¿qué habían tenido ellos?',
+                        russian: 'они имели (до того)'
+                    }
+                }
+            },
+
+            // HACER verb (to do/make)
+            'hacer': {
+                present: {
+                    'yo': {
+                        positive: 'yo hago',
+                        negative: 'yo no hago',
+                        question: '¿hago yo?',
+                        whQuestion: '¿qué hago yo?',
+                        russian: 'Я делаю'
+                    },
+                    'tú': {
+                        positive: 'tú haces',
+                        negative: 'tú no haces',
+                        question: '¿haces tú?',
+                        whQuestion: '¿qué haces tú?',
+                        russian: 'ты делаешь'
+                    },
+                    'él': {
+                        positive: 'él hace',
+                        negative: 'él no hace',
+                        question: '¿hace él?',
+                        whQuestion: '¿qué hace él?',
+                        russian: 'он делает'
+                    },
+                    'ella': {
+                        positive: 'ella hace',
+                        negative: 'ella no hace',
+                        question: '¿hace ella?',
+                        whQuestion: '¿qué hace ella?',
+                        russian: 'она делает'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hacemos',
+                        negative: 'nosotros no hacemos',
+                        question: '¿hacemos nosotros?',
+                        whQuestion: '¿qué hacemos nosotros?',
+                        russian: 'мы делаем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros hacéis',
+                        negative: 'vosotros no hacéis',
+                        question: '¿hacéis vosotros?',
+                        whQuestion: '¿qué hacéis vosotros?',
+                        russian: 'вы делаете'
+                    },
+                    'ellos': {
+                        positive: 'ellos hacen',
+                        negative: 'ellos no hacen',
+                        question: '¿hacen ellos?',
+                        whQuestion: '¿qué hacen ellos?',
+                        russian: 'они делают'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo hice',
+                        negative: 'yo no hice',
+                        question: '¿hice yo?',
+                        whQuestion: '¿qué hice yo?',
+                        russian: 'Я сделал/сделала'
+                    },
+                    'tú': {
+                        positive: 'tú hiciste',
+                        negative: 'tú no hiciste',
+                        question: '¿hiciste tú?',
+                        whQuestion: '¿qué hiciste tú?',
+                        russian: 'ты сделал/сделала'
+                    },
+                    'él': {
+                        positive: 'él hizo',
+                        negative: 'él no hizo',
+                        question: '¿hizo él?',
+                        whQuestion: '¿qué hizo él?',
+                        russian: 'он сделал'
+                    },
+                    'ella': {
+                        positive: 'ella hizo',
+                        negative: 'ella no hizo',
+                        question: '¿hizo ella?',
+                        whQuestion: '¿qué hizo ella?',
+                        russian: 'она сделала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hicimos',
+                        negative: 'nosotros no hicimos',
+                        question: '¿hicimos nosotros?',
+                        whQuestion: '¿qué hicimos nosotros?',
+                        russian: 'мы сделали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros hicisteis',
+                        negative: 'vosotros no hicisteis',
+                        question: '¿hicisteis vosotros?',
+                        whQuestion: '¿qué hicisteis vosotros?',
+                        russian: 'вы сделали'
+                    },
+                    'ellos': {
+                        positive: 'ellos hicieron',
+                        negative: 'ellos no hicieron',
+                        question: '¿hicieron ellos?',
+                        whQuestion: '¿qué hicieron ellos?',
+                        russian: 'они сделали'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo haré',
+                        negative: 'yo no haré',
+                        question: '¿haré yo?',
+                        whQuestion: '¿qué haré yo?',
+                        russian: 'Я сделаю'
+                    },
+                    'tú': {
+                        positive: 'tú harás',
+                        negative: 'tú no harás',
+                        question: '¿harás tú?',
+                        whQuestion: '¿qué harás tú?',
+                        russian: 'ты сделаешь'
+                    },
+                    'él': {
+                        positive: 'él hará',
+                        negative: 'él no hará',
+                        question: '¿hará él?',
+                        whQuestion: '¿qué hará él?',
+                        russian: 'он сделает'
+                    },
+                    'ella': {
+                        positive: 'ella hará',
+                        negative: 'ella no hará',
+                        question: '¿hará ella?',
+                        whQuestion: '¿qué hará ella?',
+                        russian: 'она сделает'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros haremos',
+                        negative: 'nosotros no haremos',
+                        question: '¿haremos nosotros?',
+                        whQuestion: '¿qué haremos nosotros?',
+                        russian: 'мы сделаем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros haréis',
+                        negative: 'vosotros no haréis',
+                        question: '¿haréis vosotros?',
+                        whQuestion: '¿qué haréis vosotros?',
+                        russian: 'вы сделаете'
+                    },
+                    'ellos': {
+                        positive: 'ellos harán',
+                        negative: 'ellos no harán',
+                        question: '¿harán ellos?',
+                        whQuestion: '¿qué harán ellos?',
+                        russian: 'они сделают'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he hecho',
+                        negative: 'yo no he hecho',
+                        question: '¿he hecho yo?',
+                        whQuestion: '¿qué he hecho yo?',
+                        russian: 'Я сделал/сделала'
+                    },
+                    'tú': {
+                        positive: 'tú has hecho',
+                        negative: 'tú no has hecho',
+                        question: '¿has hecho tú?',
+                        whQuestion: '¿qué has hecho tú?',
+                        russian: 'ты сделал/сделала'
+                    },
+                    'él': {
+                        positive: 'él ha hecho',
+                        negative: 'él no ha hecho',
+                        question: '¿ha hecho él?',
+                        whQuestion: '¿qué ha hecho él?',
+                        russian: 'он сделал'
+                    },
+                    'ella': {
+                        positive: 'ella ha hecho',
+                        negative: 'ella no ha hecho',
+                        question: '¿ha hecho ella?',
+                        whQuestion: '¿qué ha hecho ella?',
+                        russian: 'она сделала'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos hecho',
+                        negative: 'nosotros no hemos hecho',
+                        question: '¿hemos hecho nosotros?',
+                        whQuestion: '¿qué hemos hecho nosotros?',
+                        russian: 'мы сделали'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis hecho',
+                        negative: 'vosotros no habéis hecho',
+                        question: '¿habéis hecho vosotros?',
+                        whQuestion: '¿qué habéis hecho vosotros?',
+                        russian: 'вы сделали'
+                    },
+                    'ellos': {
+                        positive: 'ellos han hecho',
+                        negative: 'ellos no han hecho',
+                        question: '¿han hecho ellos?',
+                        whQuestion: '¿qué han hecho ellos?',
+                        russian: 'они сделали'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había hecho',
+                        negative: 'yo no había hecho',
+                        question: '¿había hecho yo?',
+                        whQuestion: '¿qué había hecho yo?',
+                        russian: 'Я сделал/сделала (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías hecho',
+                        negative: 'tú no habías hecho',
+                        question: '¿habías hecho tú?',
+                        whQuestion: '¿qué habías hecho tú?',
+                        russian: 'ты сделал/сделала (до того)'
+                    },
+                    'él': {
+                        positive: 'él había hecho',
+                        negative: 'él no había hecho',
+                        question: '¿había hecho él?',
+                        whQuestion: '¿qué había hecho él?',
+                        russian: 'он сделал (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había hecho',
+                        negative: 'ella no había hecho',
+                        question: '¿había hecho ella?',
+                        whQuestion: '¿qué había hecho ella?',
+                        russian: 'она сделала (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos hecho',
+                        negative: 'nosotros no habíamos hecho',
+                        question: '¿habíamos hecho nosotros?',
+                        whQuestion: '¿qué habíamos hecho nosotros?',
+                        russian: 'мы сделали (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais hecho',
+                        negative: 'vosotros no habíais hecho',
+                        question: '¿habíais hecho vosotros?',
+                        whQuestion: '¿qué habíais hecho vosotros?',
+                        russian: 'вы сделали (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían hecho',
+                        negative: 'ellos no habían hecho',
+                        question: '¿habían hecho ellos?',
+                        whQuestion: '¿qué habían hecho ellos?',
+                        russian: 'они сделали (до того)'
+                    }
+                }
+            },
+
+            // IR verb (to go)
+            'ir': {
+                present: {
+                    'yo': {
+                        positive: 'yo voy',
+                        negative: 'yo no voy',
+                        question: '¿voy yo?',
+                        whQuestion: '¿adónde voy yo?',
+                        russian: 'Я иду'
+                    },
+                    'tú': {
+                        positive: 'tú vas',
+                        negative: 'tú no vas',
+                        question: '¿vas tú?',
+                        whQuestion: '¿adónde vas tú?',
+                        russian: 'ты идёшь'
+                    },
+                    'él': {
+                        positive: 'él va',
+                        negative: 'él no va',
+                        question: '¿va él?',
+                        whQuestion: '¿adónde va él?',
+                        russian: 'он идёт'
+                    },
+                    'ella': {
+                        positive: 'ella va',
+                        negative: 'ella no va',
+                        question: '¿va ella?',
+                        whQuestion: '¿adónde va ella?',
+                        russian: 'она идёт'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros vamos',
+                        negative: 'nosotros no vamos',
+                        question: '¿vamos nosotros?',
+                        whQuestion: '¿adónde vamos nosotros?',
+                        russian: 'мы идём'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros vais',
+                        negative: 'vosotros no vais',
+                        question: '¿vais vosotros?',
+                        whQuestion: '¿adónde vais vosotros?',
+                        russian: 'вы идёте'
+                    },
+                    'ellos': {
+                        positive: 'ellos van',
+                        negative: 'ellos no van',
+                        question: '¿van ellos?',
+                        whQuestion: '¿adónde van ellos?',
+                        russian: 'они идут'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo fui',
+                        negative: 'yo no fui',
+                        question: '¿fui yo?',
+                        whQuestion: '¿adónde fui yo?',
+                        russian: 'Я пошёл/пошла'
+                    },
+                    'tú': {
+                        positive: 'tú fuiste',
+                        negative: 'tú no fuiste',
+                        question: '¿fuiste tú?',
+                        whQuestion: '¿adónde fuiste tú?',
+                        russian: 'ты пошёл/пошла'
+                    },
+                    'él': {
+                        positive: 'él fue',
+                        negative: 'él no fue',
+                        question: '¿fue él?',
+                        whQuestion: '¿adónde fue él?',
+                        russian: 'он пошёл'
+                    },
+                    'ella': {
+                        positive: 'ella fue',
+                        negative: 'ella no fue',
+                        question: '¿fue ella?',
+                        whQuestion: '¿adónde fue ella?',
+                        russian: 'она пошла'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros fuimos',
+                        negative: 'nosotros no fuimos',
+                        question: '¿fuimos nosotros?',
+                        whQuestion: '¿adónde fuimos nosotros?',
+                        russian: 'мы пошли'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros fuisteis',
+                        negative: 'vosotros no fuisteis',
+                        question: '¿fuisteis vosotros?',
+                        whQuestion: '¿adónde fuisteis vosotros?',
+                        russian: 'вы пошли'
+                    },
+                    'ellos': {
+                        positive: 'ellos fueron',
+                        negative: 'ellos no fueron',
+                        question: '¿fueron ellos?',
+                        whQuestion: '¿adónde fueron ellos?',
+                        russian: 'они пошли'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo iré',
+                        negative: 'yo no iré',
+                        question: '¿iré yo?',
+                        whQuestion: '¿adónde iré yo?',
+                        russian: 'Я пойду'
+                    },
+                    'tú': {
+                        positive: 'tú irás',
+                        negative: 'tú no irás',
+                        question: '¿irás tú?',
+                        whQuestion: '¿adónde irás tú?',
+                        russian: 'ты пойдёшь'
+                    },
+                    'él': {
+                        positive: 'él irá',
+                        negative: 'él no irá',
+                        question: '¿irá él?',
+                        whQuestion: '¿adónde irá él?',
+                        russian: 'он пойдёт'
+                    },
+                    'ella': {
+                        positive: 'ella irá',
+                        negative: 'ella no irá',
+                        question: '¿irá ella?',
+                        whQuestion: '¿adónde irá ella?',
+                        russian: 'она пойдёт'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros iremos',
+                        negative: 'nosotros no iremos',
+                        question: '¿iremos nosotros?',
+                        whQuestion: '¿adónde iremos nosotros?',
+                        russian: 'мы пойдём'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros iréis',
+                        negative: 'vosotros no iréis',
+                        question: '¿iréis vosotros?',
+                        whQuestion: '¿adónde iréis vosotros?',
+                        russian: 'вы пойдёте'
+                    },
+                    'ellos': {
+                        positive: 'ellos irán',
+                        negative: 'ellos no irán',
+                        question: '¿irán ellos?',
+                        whQuestion: '¿adónde irán ellos?',
+                        russian: 'они пойдут'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he ido',
+                        negative: 'yo no he ido',
+                        question: '¿he ido yo?',
+                        whQuestion: '¿adónde he ido yo?',
+                        russian: 'Я ушёл/ушла'
+                    },
+                    'tú': {
+                        positive: 'tú has ido',
+                        negative: 'tú no has ido',
+                        question: '¿has ido tú?',
+                        whQuestion: '¿adónde has ido tú?',
+                        russian: 'ты ушёл/ушла'
+                    },
+                    'él': {
+                        positive: 'él ha ido',
+                        negative: 'él no ha ido',
+                        question: '¿ha ido él?',
+                        whQuestion: '¿adónde ha ido él?',
+                        russian: 'он ушёл'
+                    },
+                    'ella': {
+                        positive: 'ella ha ido',
+                        negative: 'ella no ha ido',
+                        question: '¿ha ido ella?',
+                        whQuestion: '¿adónde ha ido ella?',
+                        russian: 'она ушла'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos ido',
+                        negative: 'nosotros no hemos ido',
+                        question: '¿hemos ido nosotros?',
+                        whQuestion: '¿adónde hemos ido nosotros?',
+                        russian: 'мы ушли'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis ido',
+                        negative: 'vosotros no habéis ido',
+                        question: '¿habéis ido vosotros?',
+                        whQuestion: '¿adónde habéis ido vosotros?',
+                        russian: 'вы ушли'
+                    },
+                    'ellos': {
+                        positive: 'ellos han ido',
+                        negative: 'ellos no han ido',
+                        question: '¿han ido ellos?',
+                        whQuestion: '¿adónde han ido ellos?',
+                        russian: 'они ушли'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había ido',
+                        negative: 'yo no había ido',
+                        question: '¿había ido yo?',
+                        whQuestion: '¿adónde había ido yo?',
+                        russian: 'Я ушёл/ушла (до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías ido',
+                        negative: 'tú no habías ido',
+                        question: '¿habías ido tú?',
+                        whQuestion: '¿adónde habías ido tú?',
+                        russian: 'ты ушёл/ушла (до того)'
+                    },
+                    'él': {
+                        positive: 'él había ido',
+                        negative: 'él no había ido',
+                        question: '¿había ido él?',
+                        whQuestion: '¿adónde había ido él?',
+                        russian: 'он ушёл (до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había ido',
+                        negative: 'ella no había ido',
+                        question: '¿había ido ella?',
+                        whQuestion: '¿adónde había ido ella?',
+                        russian: 'она ушла (до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos ido',
+                        negative: 'nosotros no habíamos ido',
+                        question: '¿habíamos ido nosotros?',
+                        whQuestion: '¿adónde habíamos ido nosotros?',
+                        russian: 'мы ушли (до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais ido',
+                        negative: 'vosotros no habíais ido',
+                        question: '¿habíais ido vosotros?',
+                        whQuestion: '¿adónde habíais ido vosotros?',
+                        russian: 'вы ушли (до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían ido',
+                        negative: 'ellos no habían ido',
+                        question: '¿habían ido ellos?',
+                        whQuestion: '¿adónde habían ido ellos?',
+                        russian: 'они ушли (до того)'
+                    }
+                }
+            },
+
+            // ESTAR verb (to be - temporary)
+            'estar': {
+                present: {
+                    'yo': {
+                        positive: 'yo estoy',
+                        negative: 'yo no estoy',
+                        question: '¿estoy yo?',
+                        whQuestion: '¿dónde estoy yo?',
+                        russian: 'Я есть (временно)'
+                    },
+                    'tú': {
+                        positive: 'tú estás',
+                        negative: 'tú no estás',
+                        question: '¿estás tú?',
+                        whQuestion: '¿dónde estás tú?',
+                        russian: 'ты есть (временно)'
+                    },
+                    'él': {
+                        positive: 'él está',
+                        negative: 'él no está',
+                        question: '¿está él?',
+                        whQuestion: '¿dónde está él?',
+                        russian: 'он есть (временно)'
+                    },
+                    'ella': {
+                        positive: 'ella está',
+                        negative: 'ella no está',
+                        question: '¿está ella?',
+                        whQuestion: '¿dónde está ella?',
+                        russian: 'она есть (временно)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros estamos',
+                        negative: 'nosotros no estamos',
+                        question: '¿estamos nosotros?',
+                        whQuestion: '¿dónde estamos nosotros?',
+                        russian: 'мы есть (временно)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros estáis',
+                        negative: 'vosotros no estáis',
+                        question: '¿estáis vosotros?',
+                        whQuestion: '¿dónde estáis vosotros?',
+                        russian: 'вы есть (временно)'
+                    },
+                    'ellos': {
+                        positive: 'ellos están',
+                        negative: 'ellos no están',
+                        question: '¿están ellos?',
+                        whQuestion: '¿dónde están ellos?',
+                        russian: 'они есть (временно)'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo estuve',
+                        negative: 'yo no estuve',
+                        question: '¿estuve yo?',
+                        whQuestion: '¿dónde estuve yo?',
+                        russian: 'Я был/была (где-то)'
+                    },
+                    'tú': {
+                        positive: 'tú estuviste',
+                        negative: 'tú no estuviste',
+                        question: '¿estuviste tú?',
+                        whQuestion: '¿dónde estuviste tú?',
+                        russian: 'ты был/была (где-то)'
+                    },
+                    'él': {
+                        positive: 'él estuvo',
+                        negative: 'él no estuvo',
+                        question: '¿estuvo él?',
+                        whQuestion: '¿dónde estuvo él?',
+                        russian: 'он был (где-то)'
+                    },
+                    'ella': {
+                        positive: 'ella estuvo',
+                        negative: 'ella no estuvo',
+                        question: '¿estuvo ella?',
+                        whQuestion: '¿dónde estuvo ella?',
+                        russian: 'она была (где-то)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros estuvimos',
+                        negative: 'nosotros no estuvimos',
+                        question: '¿estuvimos nosotros?',
+                        whQuestion: '¿dónde estuvimos nosotros?',
+                        russian: 'мы были (где-то)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros estuvisteis',
+                        negative: 'vosotros no estuvisteis',
+                        question: '¿estuvisteis vosotros?',
+                        whQuestion: '¿dónde estuvisteis vosotros?',
+                        russian: 'вы были (где-то)'
+                    },
+                    'ellos': {
+                        positive: 'ellos estuvieron',
+                        negative: 'ellos no estuvieron',
+                        question: '¿estuvieron ellos?',
+                        whQuestion: '¿dónde estuvieron ellos?',
+                        russian: 'они были (где-то)'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo estaré',
+                        negative: 'yo no estaré',
+                        question: '¿estaré yo?',
+                        whQuestion: '¿dónde estaré yo?',
+                        russian: 'Я буду (где-то)'
+                    },
+                    'tú': {
+                        positive: 'tú estarás',
+                        negative: 'tú no estarás',
+                        question: '¿estarás tú?',
+                        whQuestion: '¿dónde estarás tú?',
+                        russian: 'ты будешь (где-то)'
+                    },
+                    'él': {
+                        positive: 'él estará',
+                        negative: 'él no estará',
+                        question: '¿estará él?',
+                        whQuestion: '¿dónde estará él?',
+                        russian: 'он будет (где-то)'
+                    },
+                    'ella': {
+                        positive: 'ella estará',
+                        negative: 'ella no estará',
+                        question: '¿estará ella?',
+                        whQuestion: '¿dónde estará ella?',
+                        russian: 'она будет (где-то)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros estaremos',
+                        negative: 'nosotros no estaremos',
+                        question: '¿estaremos nosotros?',
+                        whQuestion: '¿dónde estaremos nosotros?',
+                        russian: 'мы будем (где-то)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros estaréis',
+                        negative: 'vosotros no estaréis',
+                        question: '¿estaréis vosotros?',
+                        whQuestion: '¿dónde estaréis vosotros?',
+                        russian: 'вы будете (где-то)'
+                    },
+                    'ellos': {
+                        positive: 'ellos estarán',
+                        negative: 'ellos no estarán',
+                        question: '¿estarán ellos?',
+                        whQuestion: '¿dónde estarán ellos?',
+                        russian: 'они будут (где-то)'
+                    }
+                },
+                presentPerfect: {
+                    'yo': {
+                        positive: 'yo he estado',
+                        negative: 'yo no he estado',
+                        question: '¿he estado yo?',
+                        whQuestion: '¿dónde he estado yo?',
+                        russian: 'Я был/была (где-то)'
+                    },
+                    'tú': {
+                        positive: 'tú has estado',
+                        negative: 'tú no has estado',
+                        question: '¿has estado tú?',
+                        whQuestion: '¿dónde has estado tú?',
+                        russian: 'ты был/была (где-то)'
+                    },
+                    'él': {
+                        positive: 'él ha estado',
+                        negative: 'él no ha estado',
+                        question: '¿ha estado él?',
+                        whQuestion: '¿dónde ha estado él?',
+                        russian: 'он был (где-то)'
+                    },
+                    'ella': {
+                        positive: 'ella ha estado',
+                        negative: 'ella no ha estado',
+                        question: '¿ha estado ella?',
+                        whQuestion: '¿dónde ha estado ella?',
+                        russian: 'она была (где-то)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros hemos estado',
+                        negative: 'nosotros no hemos estado',
+                        question: '¿hemos estado nosotros?',
+                        whQuestion: '¿dónde hemos estado nosotros?',
+                        russian: 'мы были (где-то)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habéis estado',
+                        negative: 'vosotros no habéis estado',
+                        question: '¿habéis estado vosotros?',
+                        whQuestion: '¿dónde habéis estado vosotros?',
+                        russian: 'вы были (где-то)'
+                    },
+                    'ellos': {
+                        positive: 'ellos han estado',
+                        negative: 'ellos no han estado',
+                        question: '¿han estado ellos?',
+                        whQuestion: '¿dónde han estado ellos?',
+                        russian: 'они были (где-то)'
+                    }
+                },
+                pastPerfect: {
+                    'yo': {
+                        positive: 'yo había estado',
+                        negative: 'yo no había estado',
+                        question: '¿había estado yo?',
+                        whQuestion: '¿dónde había estado yo?',
+                        russian: 'Я был/была (где-то, до того)'
+                    },
+                    'tú': {
+                        positive: 'tú habías estado',
+                        negative: 'tú no habías estado',
+                        question: '¿habías estado tú?',
+                        whQuestion: '¿dónde habías estado tú?',
+                        russian: 'ты был/была (где-то, до того)'
+                    },
+                    'él': {
+                        positive: 'él había estado',
+                        negative: 'él no había estado',
+                        question: '¿había estado él?',
+                        whQuestion: '¿dónde había estado él?',
+                        russian: 'он был (где-то, до того)'
+                    },
+                    'ella': {
+                        positive: 'ella había estado',
+                        negative: 'ella no había estado',
+                        question: '¿había estado ella?',
+                        whQuestion: '¿dónde había estado ella?',
+                        russian: 'она была (где-то, до того)'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros habíamos estado',
+                        negative: 'nosotros no habíamos estado',
+                        question: '¿habíamos estado nosotros?',
+                        whQuestion: '¿dónde habíamos estado nosotros?',
+                        russian: 'мы были (где-то, до того)'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros habíais estado',
+                        negative: 'vosotros no habíais estado',
+                        question: '¿habíais estado vosotros?',
+                        whQuestion: '¿dónde habíais estado vosotros?',
+                        russian: 'вы были (где-то, до того)'
+                    },
+                    'ellos': {
+                        positive: 'ellos habían estado',
+                        negative: 'ellos no habían estado',
+                        question: '¿habían estado ellos?',
+                        whQuestion: '¿dónde habían estado ellos?',
+                        russian: 'они были (где-то, до того)'
+                    }
+                }
+            },
+
+            // PODER verb (can/to be able)
+            'poder': {
+                present: {
+                    'yo': {
+                        positive: 'yo puedo',
+                        negative: 'yo no puedo',
+                        question: '¿puedo yo?',
+                        whQuestion: '¿qué puedo yo hacer?',
+                        russian: 'Я могу'
+                    },
+                    'tú': {
+                        positive: 'tú puedes',
+                        negative: 'tú no puedes',
+                        question: '¿puedes tú?',
+                        whQuestion: '¿qué puedes tú hacer?',
+                        russian: 'ты можешь'
+                    },
+                    'él': {
+                        positive: 'él puede',
+                        negative: 'él no puede',
+                        question: '¿puede él?',
+                        whQuestion: '¿qué puede él hacer?',
+                        russian: 'он может'
+                    },
+                    'ella': {
+                        positive: 'ella puede',
+                        negative: 'ella no puede',
+                        question: '¿puede ella?',
+                        whQuestion: '¿qué puede ella hacer?',
+                        russian: 'она может'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros podemos',
+                        negative: 'nosotros no podemos',
+                        question: '¿podemos nosotros?',
+                        whQuestion: '¿qué podemos nosotros hacer?',
+                        russian: 'мы можем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros podéis',
+                        negative: 'vosotros no podéis',
+                        question: '¿podéis vosotros?',
+                        whQuestion: '¿qué podéis vosotros hacer?',
+                        russian: 'вы можете'
+                    },
+                    'ellos': {
+                        positive: 'ellos pueden',
+                        negative: 'ellos no pueden',
+                        question: '¿pueden ellos?',
+                        whQuestion: '¿qué pueden ellos hacer?',
+                        russian: 'они могут'
+                    }
+                },
+                past: {
+                    'yo': {
+                        positive: 'yo pude',
+                        negative: 'yo no pude',
+                        question: '¿pude yo?',
+                        whQuestion: '¿qué pude yo hacer?',
+                        russian: 'Я мог/могла'
+                    },
+                    'tú': {
+                        positive: 'tú pudiste',
+                        negative: 'tú no pudiste',
+                        question: '¿pudiste tú?',
+                        whQuestion: '¿qué pudiste tú hacer?',
+                        russian: 'ты мог/могла'
+                    },
+                    'él': {
+                        positive: 'él pudo',
+                        negative: 'él no pudo',
+                        question: '¿pudo él?',
+                        whQuestion: '¿qué pudo él hacer?',
+                        russian: 'он мог'
+                    },
+                    'ella': {
+                        positive: 'ella pudo',
+                        negative: 'ella no pudo',
+                        question: '¿pudo ella?',
+                        whQuestion: '¿qué pudo ella hacer?',
+                        russian: 'она могла'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros pudimos',
+                        negative: 'nosotros no pudimos',
+                        question: '¿pudimos nosotros?',
+                        whQuestion: '¿qué pudimos nosotros hacer?',
+                        russian: 'мы могли'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros pudisteis',
+                        negative: 'vosotros no pudisteis',
+                        question: '¿pudisteis vosotros?',
+                        whQuestion: '¿qué pudisteis vosotros hacer?',
+                        russian: 'вы могли'
+                    },
+                    'ellos': {
+                        positive: 'ellos pudieron',
+                        negative: 'ellos no pudieron',
+                        question: '¿pudieron ellos?',
+                        whQuestion: '¿qué pudieron ellos hacer?',
+                        russian: 'они могли'
+                    }
+                },
+                future: {
+                    'yo': {
+                        positive: 'yo podré',
+                        negative: 'yo no podré',
+                        question: '¿podré yo?',
+                        whQuestion: '¿qué podré yo hacer?',
+                        russian: 'Я смогу'
+                    },
+                    'tú': {
+                        positive: 'tú podrás',
+                        negative: 'tú no podrás',
+                        question: '¿podrás tú?',
+                        whQuestion: '¿qué podrás tú hacer?',
+                        russian: 'ты сможешь'
+                    },
+                    'él': {
+                        positive: 'él podrá',
+                        negative: 'él no podrá',
+                        question: '¿podrá él?',
+                        whQuestion: '¿qué podrá él hacer?',
+                        russian: 'он сможет'
+                    },
+                    'ella': {
+                        positive: 'ella podrá',
+                        negative: 'ella no podrá',
+                        question: '¿podrá ella?',
+                        whQuestion: '¿qué podrá ella hacer?',
+                        russian: 'она сможет'
+                    },
+                    'nosotros': {
+                        positive: 'nosotros podremos',
+                        negative: 'nosotros no podremos',
+                        question: '¿podremos nosotros?',
+                        whQuestion: '¿qué podremos nosotros hacer?',
+                        russian: 'мы сможем'
+                    },
+                    'vosotros': {
+                        positive: 'vosotros podréis',
+                        negative: 'vosotros no podréis',
+                        question: '¿podréis vosotros?',
+                        whQuestion: '¿qué podréis vosotros hacer?',
+                        russian: 'вы сможете'
+                    },
+                    'ellos':
